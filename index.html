@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoFleetAI — AI-Powered Transportation Management System</title>
+  <meta name="description" content="GoFleetAI is the AI-powered TMS that dispatches smarter, routes safer, and scales from 30 to 300+ trucks. Real-time GPS, HOS compliance, weather-aware routing, and 7-factor AI dispatch scoring.">
+  <meta name="keywords" content="TMS, transportation management system, AI dispatch, fleet management, trucking software, GPS tracking, HOS compliance, weather routing">
+  <meta property="og:title" content="GoFleetAI — AI-Powered Transportation Management">
+  <meta property="og:description" content="Dispatch smarter. Route safer. Scale faster. The AI-powered TMS built for modern fleets.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gofleetai.com">
+  <link rel="canonical" href="https://gofleetai.com">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-card-hover: #1c1c28;
+      --border: #2a2a3a;
+      --text-primary: #f0f0f5;
+      --text-secondary: #8888a0;
+      --text-muted: #5a5a70;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --accent-glow: rgba(59, 130, 246, 0.15);
+      --green: #22c55e;
+      --green-glow: rgba(34, 197, 94, 0.15);
+      --orange: #f97316;
+      --orange-glow: rgba(249, 115, 22, 0.15);
+      --purple: #a855f7;
+      --purple-glow: rgba(168, 85, 247, 0.15);
+      --cyan: #06b6d4;
+      --cyan-glow: rgba(6, 182, 212, 0.15);
+      --red: #ef4444;
+      --gradient-hero: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #22c55e 100%);
+      --gradient-text: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== UTILITY ===== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .gradient-text {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+    }
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes count-up {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in.delay-1 { transition-delay: 0.1s; }
+    .fade-in.delay-2 { transition-delay: 0.2s; }
+    .fade-in.delay-3 { transition-delay: 0.3s; }
+    .fade-in.delay-4 { transition-delay: 0.4s; }
+    .fade-in.delay-5 { transition-delay: 0.5s; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+    nav.scrolled {
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--text-primary);
+    }
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--gradient-hero);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--accent-light);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .btn-lg { padding: 14px 32px; font-size: 16px; border-radius: 12px; }
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 160px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    }
+    .hero-content {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px 6px 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      animation: fadeInUp 0.6s ease;
+    }
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse-glow 2s ease infinite;
+      box-shadow: 0 0 8px var(--green);
+    }
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 76px);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.6s ease 0.1s both;
+    }
+    .hero-subtitle {
+      font-size: clamp(18px, 2.5vw, 22px);
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+      animation: fadeInUp 0.6s ease 0.2s both;
+    }
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      animation: fadeInUp 0.6s ease 0.3s both;
+      flex-wrap: wrap;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 64px;
+      margin-top: 80px;
+      animation: fadeInUp 0.6s ease 0.4s both;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat-value {
+      font-size: 40px;
+      font-weight: 800;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ===== LOGO BAR ===== */
+    .logo-bar {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo-bar-label {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 32px;
+    }
+    .logo-bar-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      opacity: 0.4;
+    }
+    .logo-bar-logos span {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 1px;
+    }
+
+    /* ===== FEATURES GRID ===== */
+    .features {
+      padding: 120px 0;
+    }
+    .features-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .features-header .section-desc { margin: 0 auto; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-hero);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .feature-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(59, 130, 246, 0.3);
+      transform: translateY(-4px);
+    }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .feature-icon.blue { background: var(--accent-glow); color: var(--accent-light); }
+    .feature-icon.green { background: var(--green-glow); color: var(--green); }
+    .feature-icon.orange { background: var(--orange-glow); color: var(--orange); }
+    .feature-icon.purple { background: var(--purple-glow); color: var(--purple); }
+    .feature-icon.cyan { background: var(--cyan-glow); color: var(--cyan); }
+    .feature-icon.red { background: rgba(239,68,68,0.15); color: var(--red); }
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== AI DISPATCH SHOWCASE ===== */
+    .ai-section {
+      padding: 120px 0;
+      background: var(--bg-secondary);
+      position: relative;
+    }
+    .ai-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ai-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .ai-content .section-title { margin-bottom: 20px; }
+    .ai-factors {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .ai-factor {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: all 0.2s;
+    }
+    .ai-factor:hover {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .ai-factor-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ai-factor-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .ai-factor-text span {
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    /* AI Score Card */
+    .ai-demo {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+    }
+    .ai-demo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .ai-demo-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .ai-demo-badge {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: var(--green-glow);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .ai-match {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      transition: all 0.2s;
+    }
+    .ai-match:first-of-type {
+      background: var(--accent-glow);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    .ai-match-rank {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--bg-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent-light);
+      flex-shrink: 0;
+    }
+    .ai-match-info { flex: 1; }
+    .ai-match-name { font-size: 15px; font-weight: 600; }
+    .ai-match-detail { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .ai-match-score {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--green);
+    }
+    .ai-score-bars {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-top: 20px;
+    }
+    .ai-score-bar {
+      text-align: center;
+    }
+    .ai-score-bar-track {
+      height: 60px;
+      background: var(--bg-primary);
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .ai-score-bar-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-radius: 6px;
+      transition: height 1s ease;
+    }
+    .ai-score-bar-label {
+      font-size: 9px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== DISPATCH PREVIEW ===== */
+    .dispatch-section {
+      padding: 120px 0;
+    }
+    .dispatch-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .dispatch-header .section-desc { margin: 0 auto; }
+    .dispatch-preview {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+    }
+    .dispatch-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .dispatch-toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dispatch-view-btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .dispatch-view-btn.active {
+      background: var(--accent-glow);
+      border-color: rgba(59,130,246,0.3);
+      color: var(--accent-light);
+    }
+    .dispatch-date {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dispatch-gantt {
+      padding: 24px;
+      overflow-x: auto;
+    }
+    .gantt-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(42, 42, 58, 0.5);
+    }
+    .gantt-driver {
+      width: 160px;
+      flex-shrink: 0;
+    }
+    .gantt-driver-name { font-size: 13px; font-weight: 600; }
+    .gantt-driver-status {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .gantt-driver-status .hos-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+    }
+    .gantt-timeline {
+      flex: 1;
+      height: 36px;
+      position: relative;
+      border-radius: 6px;
+    }
+    .gantt-block {
+      position: absolute;
+      top: 2px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .gantt-block.in-transit { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+    .gantt-block.at-pickup { background: linear-gradient(135deg, #f97316, #ea580c); }
+    .gantt-block.delivered { background: linear-gradient(135deg, #22c55e, #16a34a); }
+    .gantt-block.planned { background: linear-gradient(135deg, #6366f1, #4f46e5); border: 1px dashed rgba(255,255,255,0.3); }
+
+    /* ===== COMPLIANCE SECTION ===== */
+    .compliance {
+      padding: 120px 0;
+      background: var(--bg-secondary);
+    }
+    .compliance-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .compliance-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+    .compliance-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .compliance-header-row h4 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .compliance-status-badge {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-weight: 600;
+    }
+    .compliance-status-badge.ok { background: var(--green-glow); color: var(--green); }
+    .compliance-status-badge.warn { background: var(--orange-glow); color: var(--orange); }
+    .hos-bar-group {
+      margin-bottom: 20px;
+    }
+    .hos-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .hos-bar-label span:first-child { font-weight: 600; }
+    .hos-bar-label span:last-child { color: var(--text-muted); }
+    .hos-bar-track {
+      height: 8px;
+      background: var(--bg-primary);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .hos-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1.5s ease;
+    }
+    .compliance-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .compliance-card-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .compliance-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .compliance-card-item h4 { font-size: 14px; font-weight: 600; }
+    .compliance-card-item p { font-size: 13px; color: var(--text-secondary); }
+
+    /* ===== INTEGRATIONS ===== */
+    .integrations {
+      padding: 120px 0;
+    }
+    .integrations-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .integrations-header .section-desc { margin: 0 auto; }
+    .integration-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .integration-node {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      text-align: center;
+      min-width: 180px;
+      transition: all 0.3s;
+    }
+    .integration-node:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    .integration-node-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .integration-node h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .integration-node p { font-size: 12px; color: var(--text-muted); }
+    .integration-arrow {
+      color: var(--text-muted);
+      font-size: 24px;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing {
+      padding: 120px 0;
+      background: var(--bg-secondary);
+    }
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .pricing-header .section-desc { margin: 0 auto; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      position: relative;
+      transition: all 0.3s;
+    }
+    .pricing-card:hover {
+      transform: translateY(-4px);
+    }
+    .pricing-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
+    }
+    .pricing-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 16px;
+      border-radius: 100px;
+    }
+    .pricing-plan { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .pricing-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
+    .pricing-amount {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .pricing-amount span { font-size: 16px; font-weight: 500; color: var(--text-muted); }
+    .pricing-period { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; }
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 8px 0;
+    }
+    .pricing-features li i {
+      color: var(--green);
+      width: 16px;
+      height: 16px;
+    }
+    .pricing-card .btn { width: 100%; justify-content: center; }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials {
+      padding: 120px 0;
+    }
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+    .testimonial-stars {
+      color: #fbbf24;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+    .testimonial-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-hero);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: white;
+    }
+    .testimonial-name { font-size: 14px; font-weight: 600; }
+    .testimonial-role { font-size: 12px; color: var(--text-muted); }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      padding: 120px 0;
+      background: var(--bg-secondary);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+    }
+    .cta-section .section-title { margin-bottom: 16px; }
+    .cta-section .section-desc { margin: 0 auto 36px; }
+    .cta-ctas {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 60px 0 32px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--text-primary); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .ai-grid { grid-template-columns: 1fr; gap: 48px; }
+      .compliance-grid { grid-template-columns: 1fr; gap: 48px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 32px; flex-wrap: wrap; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .dispatch-toolbar { flex-direction: column; gap: 8px; }
+      .gantt-driver { width: 120px; }
+      .integration-flow { flex-direction: column; }
+      .integration-arrow { transform: rotate(90deg); }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <i data-lucide="truck" style="width:20px;height:20px;color:white;"></i>
+        </div>
+        GoFleetAI
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#ai-dispatch">AI Dispatch</a></li>
+        <li><a href="#compliance">Compliance</a></li>
+        <li><a href="#integrations">Integrations</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="#cta" class="btn btn-primary">Get Early Access</a></li>
+      </ul>
+      <button class="hamburger" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex';">
+        <i data-lucide="menu" style="width:24px;height:24px;"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span>Now in Early Access</span>
+      </div>
+      <h1>Dispatch Smarter.<br><span class="gradient-text">Route Safer.</span><br>Scale Faster.</h1>
+      <p class="hero-subtitle">The AI-powered TMS that scores every dispatch decision across 7 factors in under 100ms. Built for fleets of 30 to 300+ trucks.</p>
+      <div class="hero-ctas">
+        <a href="#cta" class="btn btn-primary btn-lg">
+          Request a Demo
+          <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+        </a>
+        <a href="#features" class="btn btn-secondary btn-lg">
+          See How It Works
+          <i data-lucide="play" style="width:18px;height:18px;"></i>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">&lt;100ms</div>
+          <div class="hero-stat-label">AI Dispatch Scoring</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">7-Factor</div>
+          <div class="hero-stat-label">Match Algorithm</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">316</div>
+          <div class="hero-stat-label">Features Built</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">62</div>
+          <div class="hero-stat-label">Workflow Epics</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTEGRATION BAR ===== -->
+  <section class="logo-bar">
+    <div class="container">
+      <div class="logo-bar-label">Integrates With Your Stack</div>
+      <div class="logo-bar-logos">
+        <span>Samsara ELD</span>
+        <span>Tomorrow.io</span>
+        <span>QuickBooks</span>
+        <span>DAT</span>
+        <span>Truckstop</span>
+        <span>OpenWeatherMap</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features-header">
+        <div class="section-label">Platform Features</div>
+        <h2 class="section-title">Everything Your Fleet Needs.<br><span class="gradient-text">Nothing It Doesn't.</span></h2>
+        <p class="section-desc">62 workflow epics organized around how dispatchers, fleet managers, billing teams, and drivers actually work — not how databases are structured.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon blue"><i data-lucide="layout-dashboard" style="width:24px;height:24px;"></i></div>
+          <h3>Command Center</h3>
+          <p>Real-time ops dashboard, dispatch Gantt timeline, live fleet map, exception board, and capacity planner — all in one workspace. Persistent KPI strip gives instant pulse on fleet status.</p>
+        </div>
+        <div class="feature-card fade-in delay-1">
+          <div class="feature-icon purple"><i data-lucide="brain" style="width:24px;height:24px;"></i></div>
+          <h3>AI Dispatch Engine</h3>
+          <p>7-factor deterministic scoring evaluates distance, HOS, equipment match, weather, fuel, driver preference, and urgency in under 100ms. Three autonomy modes: suggest, auto-assign, full-auto.</p>
+        </div>
+        <div class="feature-card fade-in delay-2">
+          <div class="feature-icon green"><i data-lucide="map-pin" style="width:24px;height:24px;"></i></div>
+          <h3>Live GPS &amp; Geofencing</h3>
+          <p>Real-time truck positions on an interactive map with status-coded markers. PostGIS-powered geofence zones auto-detect arrivals, departures, and detention events.</p>
+        </div>
+        <div class="feature-card fade-in delay-3">
+          <div class="feature-icon orange"><i data-lucide="cloud-sun" style="width:24px;height:24px;"></i></div>
+          <h3>Weather-Aware Routing</h3>
+          <p>Tomorrow.io + NWS alerts overlay on the fleet map. Loads routed through storm zones are flagged. AI adjusts dispatch scoring when adverse conditions apply.</p>
+        </div>
+        <div class="feature-card fade-in delay-4">
+          <div class="feature-icon cyan"><i data-lucide="shield-check" style="width:24px;height:24px;"></i></div>
+          <h3>HOS &amp; Compliance</h3>
+          <p>Full FMCSA Hours of Service command center. Split-sleeper optimization, restart planning, real-time violation alerts, and ELD integration with Samsara. DOT audit-ready.</p>
+        </div>
+        <div class="feature-card fade-in delay-5">
+          <div class="feature-icon red"><i data-lucide="alert-triangle" style="width:24px;height:24px;"></i></div>
+          <h3>Exception-Driven Ops</h3>
+          <p>Surface only problems — late pickups, detention, HOS violations, missed check calls, breakdowns, weather disruptions. Dispatchers focus on what needs attention, not routine loads.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon blue"><i data-lucide="file-text" style="width:24px;height:24px;"></i></div>
+          <h3>Document Intelligence</h3>
+          <p>AI-powered email-to-load conversion, OCR document scanning, and automated BOL processing. Rate confirmations flow directly into the Load Inbox from connected systems.</p>
+        </div>
+        <div class="feature-card fade-in delay-1">
+          <div class="feature-icon green"><i data-lucide="dollar-sign" style="width:24px;height:24px;"></i></div>
+          <h3>Full Accounting Suite</h3>
+          <p>Invoicing, AR, factoring, driver settlement, carrier settlement, fuel accounting, claims management, payroll — all connected. QuickBooks Online sync with auto-reconciliation.</p>
+        </div>
+        <div class="feature-card fade-in delay-2">
+          <div class="feature-icon purple"><i data-lucide="smartphone" style="width:24px;height:24px;"></i></div>
+          <h3>Driver Mobile App</h3>
+          <p>Native mobile app for drivers: dispatch acceptance, stop check-ins, document capture, navigation, messaging, and digital BOL signatures. Works offline with background sync.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AI DISPATCH ===== -->
+  <section class="ai-section" id="ai-dispatch">
+    <div class="container">
+      <div class="ai-grid">
+        <div class="ai-content">
+          <div class="section-label">AI Dispatch Engine</div>
+          <h2 class="section-title">Seven Factors. <span class="gradient-text">One Perfect Match.</span></h2>
+          <p class="section-desc">Every unassigned load is scored against every available driver across 7 weighted factors. Top 3 matches surface instantly so dispatchers make optimal decisions — or let AI auto-assign.</p>
+          <div class="ai-factors">
+            <div class="ai-factor fade-in">
+              <div class="ai-factor-icon" style="background:var(--accent-glow);color:var(--accent-light);"><i data-lucide="navigation" style="width:18px;height:18px;"></i></div>
+              <div class="ai-factor-text">Proximity &amp; Deadhead <span>— minimize empty miles</span></div>
+            </div>
+            <div class="ai-factor fade-in delay-1">
+              <div class="ai-factor-icon" style="background:var(--green-glow);color:var(--green);"><i data-lucide="clock" style="width:18px;height:18px;"></i></div>
+              <div class="ai-factor-text">HOS Availability <span>— FMCSA-compliant hours remaining</span></div>
+            </div>
+            <div class="ai-factor fade-in delay-2">
+              <div class="ai-factor-icon" style="background:var(--orange-glow);color:var(--orange);"><i data-lucide="container" style="width:18px;height:18px;"></i></div>
+              <div class="ai-factor-text">Equipment Match <span>— right truck for the freight</span></div>
+            </div>
+            <div class="ai-factor fade-in delay-3">
+              <div class="ai-factor-icon" style="background:var(--cyan-glow);color:var(--cyan);"><i data-lucide="cloud-lightning" style="width:18px;height:18px;"></i></div>
+              <div class="ai-factor-text">Weather Conditions <span>— route safety scoring</span></div>
+            </div>
+            <div class="ai-factor fade-in delay-4">
+              <div class="ai-factor-icon" style="background:var(--purple-glow);color:var(--purple);"><i data-lucide="fuel" style="width:18px;height:18px;"></i></div>
+              <div class="ai-factor-text">Fuel Efficiency <span>— cost-optimized lane selection</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-demo fade-in">
+          <div class="ai-demo-header">
+            <div class="ai-demo-title">AI Match Results</div>
+            <div class="ai-demo-badge">Live Scoring</div>
+          </div>
+          <div class="ai-match">
+            <div class="ai-match-rank">1</div>
+            <div class="ai-match-info">
+              <div class="ai-match-name">Marcus Johnson</div>
+              <div class="ai-match-detail">42 mi away &bull; 8.2h HOS &bull; Flatbed</div>
+            </div>
+            <div class="ai-match-score">94</div>
+          </div>
+          <div class="ai-match">
+            <div class="ai-match-rank">2</div>
+            <div class="ai-match-info">
+              <div class="ai-match-name">Sarah Chen</div>
+              <div class="ai-match-detail">67 mi away &bull; 6.5h HOS &bull; Flatbed</div>
+            </div>
+            <div class="ai-match-score" style="color:var(--accent-light);">87</div>
+          </div>
+          <div class="ai-match">
+            <div class="ai-match-rank">3</div>
+            <div class="ai-match-info">
+              <div class="ai-match-name">David Williams</div>
+              <div class="ai-match-detail">23 mi away &bull; 3.1h HOS &bull; Flatbed</div>
+            </div>
+            <div class="ai-match-score" style="color:var(--orange);">72</div>
+          </div>
+          <div class="ai-score-bars">
+            <div class="ai-score-bar">
+              <div class="ai-score-bar-track"><div class="ai-score-bar-fill" style="height:90%;background:var(--accent);"></div></div>
+              <div class="ai-score-bar-label">Dist</div>
+            </div>
+            <div class="ai-score-bar">
+              <div class="ai-score-bar-track"><div class="ai-score-bar-fill" style="height:85%;background:var(--green);"></div></div>
+              <div class="ai-score-bar-label">HOS</div>
+            </div>
+            <div class="ai-score-bar">
+              <div class="ai-score-bar-track"><div class="ai-score-bar-fill" style="height:100%;background:var(--orange);"></div></div>
+              <div class="ai-score-bar-label">Equip</div>
+            </div>
+            <div class="ai-score-bar">
+              <div class="ai-score-bar-track"><div class="ai-score-bar-fill" style="height:95%;background:var(--cyan);"></div></div>
+              <div class="ai-score-bar-label">Wthr</div>
+            </div>
+            <div class="ai-score-bar">
+              <div class="ai-score-bar-track"><div class="ai-score-bar-fill" style="height:75%;background:var(--purple);"></div></div>
+              <div class="ai-score-bar-label">Fuel</div>
+            </div>
+            <div class="ai-score-bar">
+              <div class="ai-score-bar-track"><div class="ai-score-bar-fill" style="height:88%;background:#fbbf24;"></div></div>
+              <div class="ai-score-bar-label">Pref</div>
+            </div>
+            <div class="ai-score-bar">
+              <div class="ai-score-bar-track"><div class="ai-score-bar-fill" style="height:70%;background:var(--red);"></div></div>
+              <div class="ai-score-bar-label">Urgnt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DISPATCH BOARD PREVIEW ===== -->
+  <section class="dispatch-section" id="dispatch-board">
+    <div class="container">
+      <div class="dispatch-header">
+        <div class="section-label">Dispatch Board</div>
+        <h2 class="section-title">Your Fleet at a Glance.<br><span class="gradient-text">Drag. Drop. Dispatch.</span></h2>
+        <p class="section-desc">Visual Gantt timeline with drag-and-drop assignment, real-time updates, and HOS indicators on every driver row.</p>
+      </div>
+      <div class="dispatch-preview fade-in">
+        <div class="dispatch-toolbar">
+          <div class="dispatch-toolbar-left">
+            <button class="dispatch-view-btn active">Drivers</button>
+            <button class="dispatch-view-btn">Power Units</button>
+            <button class="dispatch-view-btn">Trailers</button>
+            <button class="dispatch-view-btn">Planning</button>
+          </div>
+          <div class="dispatch-date">
+            <i data-lucide="calendar" style="width:14px;height:14px;"></i>
+            Mar 24 – Mar 30, 2026 &nbsp;&bull;&nbsp; Week View
+          </div>
+        </div>
+        <div class="dispatch-gantt">
+          <div class="gantt-row">
+            <div class="gantt-driver">
+              <div class="gantt-driver-name">Marcus Johnson</div>
+              <div class="gantt-driver-status"><span class="hos-dot" style="background:var(--green);"></span> 8.2h HOS</div>
+            </div>
+            <div class="gantt-timeline">
+              <div class="gantt-block in-transit" style="left:5%;width:30%;">LD-1042 &bull; Dallas → Houston</div>
+              <div class="gantt-block planned" style="left:40%;width:25%;">LD-1089 &bull; Houston → Austin</div>
+            </div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-driver">
+              <div class="gantt-driver-name">Sarah Chen</div>
+              <div class="gantt-driver-status"><span class="hos-dot" style="background:var(--orange);"></span> 3.5h HOS</div>
+            </div>
+            <div class="gantt-timeline">
+              <div class="gantt-block delivered" style="left:0%;width:18%;">LD-1038 &bull; Memphis → Nashville</div>
+              <div class="gantt-block at-pickup" style="left:52%;width:20%;">LD-1091 &bull; Nashville → Atlanta</div>
+            </div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-driver">
+              <div class="gantt-driver-name">David Williams</div>
+              <div class="gantt-driver-status"><span class="hos-dot" style="background:var(--green);"></span> 9.8h HOS</div>
+            </div>
+            <div class="gantt-timeline">
+              <div class="gantt-block in-transit" style="left:15%;width:45%;">LD-1045 &bull; Chicago → Indianapolis → Louisville</div>
+            </div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-driver">
+              <div class="gantt-driver-name">Maria Garcia</div>
+              <div class="gantt-driver-status"><span class="hos-dot" style="background:var(--red);"></span> 1.2h HOS</div>
+            </div>
+            <div class="gantt-timeline">
+              <div class="gantt-block delivered" style="left:0%;width:35%;">LD-1029 &bull; Phoenix → Los Angeles</div>
+            </div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-driver">
+              <div class="gantt-driver-name">James Wilson</div>
+              <div class="gantt-driver-status"><span class="hos-dot" style="background:var(--green);"></span> 10.5h HOS</div>
+            </div>
+            <div class="gantt-timeline">
+              <div class="gantt-block planned" style="left:25%;width:28%;">LD-1093 &bull; Denver → SLC</div>
+              <div class="gantt-block planned" style="left:58%;width:22%;">LD-1097 &bull; SLC → Portland</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMPLIANCE ===== -->
+  <section class="compliance" id="compliance">
+    <div class="container">
+      <div class="compliance-grid">
+        <div class="compliance-visual fade-in">
+          <div class="compliance-header-row">
+            <h4>HOS Command Center</h4>
+            <span class="compliance-status-badge ok">All Compliant</span>
+          </div>
+          <div class="hos-bar-group">
+            <div class="hos-bar-label"><span>Drive Time</span><span>6.8 / 11.0 hrs</span></div>
+            <div class="hos-bar-track"><div class="hos-bar-fill" style="width:62%;background:var(--green);"></div></div>
+          </div>
+          <div class="hos-bar-group">
+            <div class="hos-bar-label"><span>On-Duty Time</span><span>9.2 / 14.0 hrs</span></div>
+            <div class="hos-bar-track"><div class="hos-bar-fill" style="width:66%;background:var(--accent);"></div></div>
+          </div>
+          <div class="hos-bar-group">
+            <div class="hos-bar-label"><span>70-Hour Cycle</span><span>52.3 / 70.0 hrs</span></div>
+            <div class="hos-bar-track"><div class="hos-bar-fill" style="width:75%;background:var(--orange);"></div></div>
+          </div>
+          <div class="hos-bar-group">
+            <div class="hos-bar-label"><span>30-Min Break</span><span class="compliance-status-badge ok" style="font-size:11px;">Taken</span></div>
+            <div class="hos-bar-track"><div class="hos-bar-fill" style="width:100%;background:var(--green);"></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Safety &amp; Compliance</div>
+          <h2 class="section-title">DOT Audit Ready. <span class="gradient-text">Always.</span></h2>
+          <p class="section-desc">Full FMCSA compliance monitoring across HOS, vehicle inspections, document compliance, carrier qualifications, and IFTA/tax reporting. A compliance failure shuts down the company — GoFleetAI makes sure it never happens.</p>
+          <div class="compliance-cards">
+            <div class="compliance-card-item fade-in">
+              <div class="compliance-card-icon" style="background:var(--green-glow);color:var(--green);"><i data-lucide="scan-eye" style="width:20px;height:20px;"></i></div>
+              <div>
+                <h4>Real-Time HOS Monitoring</h4>
+                <p>ELD integration with Samsara. Split-sleeper optimization and restart planning.</p>
+              </div>
+            </div>
+            <div class="compliance-card-item fade-in delay-1">
+              <div class="compliance-card-icon" style="background:var(--accent-glow);color:var(--accent-light);"><i data-lucide="file-check" style="width:20px;height:20px;"></i></div>
+              <div>
+                <h4>Document Compliance Tracker</h4>
+                <p>CDL, medical cards, insurance — auto-alerts 30/60/90 days before expiration.</p>
+              </div>
+            </div>
+            <div class="compliance-card-item fade-in delay-2">
+              <div class="compliance-card-icon" style="background:var(--orange-glow);color:var(--orange);"><i data-lucide="clipboard-check" style="width:20px;height:20px;"></i></div>
+              <div>
+                <h4>Vehicle Inspection (DVIR)</h4>
+                <p>Digital pre/post-trip inspections with photo capture and defect escalation workflows.</p>
+              </div>
+            </div>
+            <div class="compliance-card-item fade-in delay-3">
+              <div class="compliance-card-icon" style="background:var(--purple-glow);color:var(--purple);"><i data-lucide="bar-chart-3" style="width:20px;height:20px;"></i></div>
+              <div>
+                <h4>Fleet Safety Scoring</h4>
+                <p>CSA scores, driver safety metrics, and incident tracking with trend analysis.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTEGRATIONS ===== -->
+  <section class="integrations" id="integrations">
+    <div class="container">
+      <div class="integrations-header">
+        <div class="section-label">Integrations</div>
+        <h2 class="section-title">Loads Flow In. <span class="gradient-text">Revenue Flows Out.</span></h2>
+        <p class="section-desc">Connect your load boards, email intelligence, ELD devices, weather services, and accounting — GoFleetAI orchestrates the entire lifecycle.</p>
+      </div>
+      <div class="integration-flow fade-in">
+        <div class="integration-node">
+          <div class="integration-node-icon" style="background:var(--accent-glow);color:var(--accent-light);"><i data-lucide="package" style="width:24px;height:24px;"></i></div>
+          <h4>Load Boards</h4>
+          <p>DAT, Truckstop, 123Loadboard</p>
+        </div>
+        <div class="integration-arrow"><i data-lucide="arrow-right" style="width:24px;height:24px;"></i></div>
+        <div class="integration-node">
+          <div class="integration-node-icon" style="background:var(--green-glow);color:var(--green);"><i data-lucide="mail" style="width:24px;height:24px;"></i></div>
+          <h4>Email Intelligence</h4>
+          <p>Rate confs &amp; auto-tenders</p>
+        </div>
+        <div class="integration-arrow"><i data-lucide="arrow-right" style="width:24px;height:24px;"></i></div>
+        <div class="integration-node" style="border-color:var(--accent);box-shadow:0 0 30px var(--accent-glow);">
+          <div class="integration-node-icon" style="background:var(--gradient-hero);"><i data-lucide="cpu" style="width:24px;height:24px;color:white;"></i></div>
+          <h4>GoFleetAI</h4>
+          <p>AI Dispatch &amp; TMS</p>
+        </div>
+        <div class="integration-arrow"><i data-lucide="arrow-right" style="width:24px;height:24px;"></i></div>
+        <div class="integration-node">
+          <div class="integration-node-icon" style="background:var(--orange-glow);color:var(--orange);"><i data-lucide="radio-tower" style="width:24px;height:24px;"></i></div>
+          <h4>ELD &amp; Telematics</h4>
+          <p>Samsara, GPS tracking</p>
+        </div>
+        <div class="integration-arrow"><i data-lucide="arrow-right" style="width:24px;height:24px;"></i></div>
+        <div class="integration-node">
+          <div class="integration-node-icon" style="background:var(--purple-glow);color:var(--purple);"><i data-lucide="receipt" style="width:24px;height:24px;"></i></div>
+          <h4>Accounting</h4>
+          <p>QuickBooks, Factoring</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="testimonials-header">
+        <div class="section-label">What Operators Say</div>
+        <h2 class="section-title">Built by Operators. <span class="gradient-text">For Operators.</span></h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"The AI dispatch scoring alone saves us 2 hours a day. Instead of guessing which driver to send, the system surfaces the best match instantly. Our deadhead miles dropped 18% in the first month."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RK</div>
+            <div>
+              <div class="testimonial-name">Robert K.</div>
+              <div class="testimonial-role">Fleet Manager, 45 trucks</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-in delay-1">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"We used to track HOS on a whiteboard. Now every driver's hours are right there on the dispatch board. Split-sleeper recommendations have been a game changer for our long-haul runs."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">TM</div>
+            <div>
+              <div class="testimonial-name">Teresa M.</div>
+              <div class="testimonial-role">Operations Director, 120 trucks</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-in delay-2">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-text">"Exception-driven ops changed how we work. Instead of babysitting 80 loads, I only see the 3 that need attention. Weather routing flagged a storm that would have cost us $12K in detention."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JL</div>
+            <div>
+              <div class="testimonial-name">James L.</div>
+              <div class="testimonial-role">Dispatcher, 80 trucks</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section" id="cta">
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section-label">Get Started</div>
+      <h2 class="section-title">Ready to Dispatch <span class="gradient-text">Smarter?</span></h2>
+      <p class="section-desc">Join the early access program. Get onboarded in under a week. No long-term contracts.</p>
+      <div class="cta-ctas">
+        <a href="mailto:sales@gofleetai.com" class="btn btn-primary btn-lg">
+          Request a Demo
+          <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+        </a>
+        <a href="mailto:sales@gofleetai.com" class="btn btn-secondary btn-lg">
+          Talk to Sales
+          <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <div class="nav-logo-icon">
+              <i data-lucide="truck" style="width:20px;height:20px;color:white;"></i>
+            </div>
+            GoFleetAI
+          </a>
+          <p>AI-powered transportation management built by TekOmni LLC. Dispatch smarter, route safer, scale faster.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#ai-dispatch">AI Dispatch</a>
+          <a href="#compliance">Compliance</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="#integrations">Integrations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About TekOmni</a>
+          <a href="#">Careers</a>
+          <a href="#">Blog</a>
+          <a href="mailto:sales@gofleetai.com">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 TekOmni LLC. All rights reserved.</span>
+        <span>GoFleetAI.com</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
