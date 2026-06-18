@@ -10,7 +10,17 @@
   <meta property="og:description" content="Dispatch smarter. Route safer. Scale faster. The AI-powered TMS built for modern fleets.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gofleetai.com">
+  <meta property="og:image" content="https://gofleetai.com/assets/logo-lockup-dark.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://gofleetai.com/assets/logo-lockup-dark.png">
   <link rel="canonical" href="https://gofleetai.com">
+
+  <!-- Favicons & brand -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-256.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-180.png">
+  <meta name="theme-color" content="#0a0a0f">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -162,12 +172,13 @@
     .nav-logo-icon {
       width: 36px;
       height: 36px;
-      background: var(--gradient-hero);
+      background: linear-gradient(135deg, #4f9fe6 0%, #3f6fd6 100%);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+    .nav-logo .logo-ai { color: #4f9fe6; }
     .nav-links {
       display: flex;
       align-items: center;
@@ -1030,9 +1041,13 @@
     <div class="container nav-inner">
       <a href="#" class="nav-logo">
         <div class="nav-logo-icon">
-          <i data-lucide="truck" style="width:20px;height:20px;color:white;"></i>
+          <svg viewBox="0 0 100 100" width="24" height="24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="13" aria-hidden="true">
+            <path d="M19 29 L42 50 L19 71" stroke="#fff" stroke-opacity=".35"/>
+            <path d="M38 29 L61 50 L38 71" stroke="#fff" stroke-opacity=".66"/>
+            <path d="M57 29 L80 50 L57 71" stroke="#fff"/>
+          </svg>
         </div>
-        GoFleetAI
+        GoFleet<span class="logo-ai">AI</span>
       </a>
       <ul class="nav-links">
         <li><a href="#features">Features</a></li>
@@ -1040,7 +1055,7 @@
         <li><a href="#compliance">Compliance</a></li>
         <li><a href="#integrations">Integrations</a></li>
         <li><a href="pricing.html">Pricing</a></li>
-        <li><a href="#cta" class="btn btn-primary">Get Early Access</a></li>
+        <li><a href="https://go.gofleetai.com/register" class="btn btn-primary">Start Free Trial</a></li>
       </ul>
       <button class="hamburger" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex';">
         <i data-lucide="menu" style="width:24px;height:24px;"></i>
@@ -1059,8 +1074,8 @@
       <h1>Dispatch Smarter.<br><span class="gradient-text">Route Safer.</span><br>Scale Faster.</h1>
       <p class="hero-subtitle">The AI-powered TMS that scores every dispatch decision across 7 factors in under 100ms. Built for fleets of 30 to 300+ trucks.</p>
       <div class="hero-ctas">
-        <a href="#cta" class="btn btn-primary btn-lg">
-          Request a Demo
+        <a href="https://go.gofleetai.com/register" class="btn btn-primary btn-lg">
+          Start Free Trial
           <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
         </a>
         <a href="#features" class="btn btn-secondary btn-lg">
@@ -1419,7 +1434,7 @@
         </div>
         <div class="integration-arrow"><i data-lucide="arrow-right" style="width:24px;height:24px;"></i></div>
         <div class="integration-node" style="border-color:var(--accent);box-shadow:0 0 30px var(--accent-glow);">
-          <div class="integration-node-icon" style="background:var(--gradient-hero);"><i data-lucide="cpu" style="width:24px;height:24px;color:white;"></i></div>
+          <div class="integration-node-icon" style="background:linear-gradient(135deg, #4f9fe6 0%, #3f6fd6 100%);"><svg viewBox="0 0 100 100" width="26" height="26" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="13" aria-hidden="true"><path d="M19 29 L42 50 L19 71" stroke="#fff" stroke-opacity=".35"/><path d="M38 29 L61 50 L38 71" stroke="#fff" stroke-opacity=".66"/><path d="M57 29 L80 50 L57 71" stroke="#fff"/></svg></div>
           <h4>GoFleetAI</h4>
           <p>AI Dispatch &amp; TMS</p>
         </div>
@@ -1490,19 +1505,73 @@
     <div class="container" style="position:relative;z-index:1;">
       <div class="section-label">Get Started</div>
       <h2 class="section-title">Ready to Dispatch <span class="gradient-text">Smarter?</span></h2>
-      <p class="section-desc">Join the early access program. Get onboarded in under a week. No long-term contracts.</p>
+      <p class="section-desc">Start free in minutes — or talk to us about your fleet. No long-term contracts.</p>
       <div class="cta-ctas">
-        <a href="mailto:sales@gofleetai.com" class="btn btn-primary btn-lg">
-          Request a Demo
+        <a href="https://go.gofleetai.com/register" class="btn btn-primary btn-lg">
+          Start Free Trial
           <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
         </a>
-        <a href="mailto:sales@gofleetai.com" class="btn btn-secondary btn-lg">
+        <a href="#contact" class="btn btn-secondary btn-lg">
           Talk to Sales
           <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
         </a>
       </div>
     </div>
   </section>
+
+  <!-- ===== TALK TO SALES ===== -->
+  <style>
+    .lead-form{display:flex;flex-direction:column;gap:12px;max-width:480px;margin:36px auto 0;text-align:left;}
+    .lead-form input,.lead-form textarea{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;color:var(--text-primary);font-size:15px;font-family:inherit;}
+    .lead-form input::placeholder,.lead-form textarea::placeholder{color:var(--text-muted);}
+    .lead-form input:focus,.lead-form textarea:focus{outline:none;border-color:var(--accent);}
+    .lead-form textarea{resize:vertical;}
+    .lead-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0;}
+    .lead-form button{margin-top:4px;justify-content:center;cursor:pointer;}
+    .lead-status{margin-top:8px;font-size:14px;min-height:20px;color:var(--text-secondary);}
+  </style>
+  <section class="cta-section" id="contact">
+    <div class="container" style="position:relative;z-index:1;max-width:560px;">
+      <div class="section-label">Talk to Sales</div>
+      <h2 class="section-title">Get a Personalized <span class="gradient-text">Demo</span></h2>
+      <p class="section-desc">Tell us about your fleet and we'll be in touch within one business day.</p>
+      <form id="lead-form" class="lead-form">
+        <input type="text" name="name" placeholder="Your name" required maxlength="120" />
+        <input type="text" name="company" placeholder="Company" required maxlength="200" />
+        <input type="email" name="email" placeholder="Work email" required maxlength="320" />
+        <input type="tel" name="phone" placeholder="Phone (optional)" maxlength="40" />
+        <input type="text" name="fleetSize" placeholder="Fleet size — e.g. 45 trucks (optional)" maxlength="40" />
+        <textarea name="message" placeholder="What are you looking to solve? (optional)" rows="3" maxlength="4000"></textarea>
+        <input type="text" name="website" class="lead-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit" id="lead-submit" class="btn btn-primary btn-lg">
+          Request a Demo
+          <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+        </button>
+        <p id="lead-status" class="lead-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+  <script>
+    (function () {
+      var f = document.getElementById('lead-form');
+      if (!f) return;
+      var st = document.getElementById('lead-status');
+      var btn = document.getElementById('lead-submit');
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var data = {};
+        new FormData(f).forEach(function (v, k) { data[k] = v; });
+        var orig = btn.innerHTML;
+        btn.disabled = true; btn.textContent = 'Sending…'; st.style.color = 'var(--text-secondary)'; st.textContent = '';
+        fetch('https://go.gofleetai.com/api/public/leads', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data),
+        })
+          .then(function (r) { if (!r.ok) throw new Error('bad'); f.reset(); st.style.color = 'var(--green)'; st.textContent = "Thanks — we'll be in touch within one business day."; })
+          .catch(function () { st.style.color = 'var(--red)'; st.textContent = 'Something went wrong. Please email sales@gofleetai.com directly.'; })
+          .finally(function () { btn.disabled = false; btn.innerHTML = orig; });
+      });
+    })();
+  </script>
 
   <!-- ===== FOOTER ===== -->
   <footer>
@@ -1511,9 +1580,13 @@
         <div class="footer-brand">
           <a href="#" class="nav-logo">
             <div class="nav-logo-icon">
-              <i data-lucide="truck" style="width:20px;height:20px;color:white;"></i>
+              <svg viewBox="0 0 100 100" width="24" height="24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="13" aria-hidden="true">
+                <path d="M19 29 L42 50 L19 71" stroke="#fff" stroke-opacity=".35"/>
+                <path d="M38 29 L61 50 L38 71" stroke="#fff" stroke-opacity=".66"/>
+                <path d="M57 29 L80 50 L57 71" stroke="#fff"/>
+              </svg>
             </div>
-            GoFleetAI
+            GoFleet<span class="logo-ai">AI</span>
           </a>
           <p>AI-powered transportation management built by TekOmni LLC. Dispatch smarter, route safer, scale faster.</p>
         </div>
@@ -1530,7 +1603,7 @@
           <a href="#">About TekOmni</a>
           <a href="#">Careers</a>
           <a href="#">Blog</a>
-          <a href="mailto:sales@gofleetai.com">Contact</a>
+          <a href="#contact">Contact</a>
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
