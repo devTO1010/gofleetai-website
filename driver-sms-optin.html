@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver SMS Consent — GoFleetAI</title>
+  <meta name="description" content="Driver opt-in for GoFleetAI SMS load-dispatch notifications. Operated by TekOmni LLC.">
+  <meta property="og:title" content="Driver SMS Consent — GoFleetAI">
+  <meta property="og:description" content="Driver opt-in for GoFleetAI SMS load-dispatch notifications.">
+  <meta property="og:image" content="https://gofleetai.com/assets/logo-lockup-dark.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://gofleetai.com/driver-sms-optin">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-256.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-180.png">
+  <meta name="theme-color" content="#0a0a0f">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --border: #2a2a3a;
+      --text-primary: #f0f0f5;
+      --text-secondary: #8888a0;
+      --text-muted: #5a5a70;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --accent-glow: rgba(59, 130, 246, 0.15);
+      --green: #22c55e;
+      --gradient-text: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary); color: var(--text-primary);
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .gradient-text { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 0;
+      background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 22px; color: var(--text-primary); }
+    .nav-logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #4f9fe6 0%, #3f6fd6 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .nav-logo .logo-ai { color: #4f9fe6; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text-primary); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-primary:hover { background: var(--accent-light); }
+    .hamburger { display: none; background: none; border: none; color: var(--text-primary); cursor: pointer; }
+
+    .hero { padding: 140px 0 32px; text-align: center; }
+    .hero .section-label { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light); margin-bottom: 12px; }
+    .hero h1 { font-size: clamp(30px, 5vw, 42px); font-weight: 800; line-height: 1.15; }
+    .hero p { color: var(--text-secondary); max-width: 600px; margin: 14px auto 0; font-size: 17px; }
+
+    .wrap { max-width: 640px; margin: 0 auto; padding: 0 24px 100px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-top: 24px; }
+    .card h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+    .receive-list { list-style: none; }
+    .receive-list li { display: flex; align-items: flex-start; gap: 10px; color: var(--text-secondary); font-size: 15px; margin-bottom: 10px; }
+    .receive-list i { color: var(--green); width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
+
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+    .form-group input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; font-family: inherit; color: var(--text-primary); background: var(--bg-secondary); outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--accent); }
+    .consent { background: var(--bg-secondary); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; padding: 16px 18px; margin: 20px 0; }
+    .consent-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+    .consent-row input[type="checkbox"] { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; cursor: pointer; }
+    .consent-row label { font-size: 14px; color: var(--text-primary); line-height: 1.55; cursor: pointer; }
+    .fine-print { font-size: 12.5px; color: var(--text-muted); line-height: 1.6; }
+    .fine-print a { color: var(--accent-light); text-decoration: none; }
+    .submit-btn { width: 100%; justify-content: center; padding: 14px; font-size: 15px; margin-top: 4px; }
+    .submit-btn:disabled { background: #2a2a3a; color: var(--text-muted); cursor: not-allowed; }
+    .success { display: none; text-align: center; padding: 24px 8px; }
+    .success i { color: var(--green); width: 48px; height: 48px; }
+    .success h2 { margin: 12px 0 6px; }
+    .success p { color: var(--text-secondary); font-size: 14px; }
+
+    footer { padding: 32px 0; border-top: 1px solid var(--border); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--text-muted); }
+    @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: block; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg viewBox="0 0 100 100" width="24" height="24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="13" aria-hidden="true">
+            <path d="M19 29 L42 50 L19 71" stroke="#fff" stroke-opacity=".35"/>
+            <path d="M38 29 L61 50 L38 71" stroke="#fff" stroke-opacity=".66"/>
+            <path d="M57 29 L80 50 L57 71" stroke="#fff"/>
+          </svg>
+        </div>
+        GoFleet<span class="logo-ai">AI</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#compliance">Compliance</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+      <button class="hamburger" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex';">
+        <i data-lucide="menu" style="width:24px;height:24px;"></i>
+      </button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="section-label">Driver SMS Consent</div>
+      <h1>Dispatch Alerts <span class="gradient-text">by Text</span></h1>
+      <p>Drivers opt in here during onboarding to receive load-dispatch notifications by SMS from GoFleetAI, operated by TekOmni LLC.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="card">
+      <h2>What you'll receive</h2>
+      <ul class="receive-list">
+        <li><i data-lucide="check"></i> A text when a load is assigned or reassigned to you</li>
+        <li><i data-lucide="check"></i> The load reference number and a link to the load details in the GoFleetAI driver app</li>
+        <li><i data-lucide="check"></i> Operational dispatch messages only — never marketing or promotions</li>
+        <li><i data-lucide="check"></i> Message frequency varies with your dispatch activity</li>
+      </ul>
+    </div>
+
+    <div class="card" id="formCard">
+      <h2>Opt in to dispatch text alerts</h2>
+      <form id="optinForm" novalidate>
+        <div class="form-group">
+          <label for="firstName">First Name *</label>
+          <input type="text" id="firstName" placeholder="Jane" required>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name *</label>
+          <input type="text" id="lastName" placeholder="Driver" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Mobile Phone Number *</label>
+          <input type="tel" id="phone" placeholder="(502) 555-0100" required>
+        </div>
+
+        <div class="consent">
+          <div class="consent-row">
+            <input type="checkbox" id="consent" required>
+            <label for="consent">
+              By providing my mobile number and checking this box, I agree to receive recurring
+              SMS load-dispatch notifications from <strong>GoFleetAI</strong> (operated by
+              <strong>TekOmni LLC</strong>) at the number above. Consent is not a condition of
+              employment.
+            </label>
+          </div>
+          <p class="fine-print">
+            Message frequency varies. Message and data rates may apply. Reply <strong>STOP</strong>
+            to opt out at any time, or <strong>HELP</strong> for help. See our
+            <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
+            Mobile information is never sold or shared with third parties for marketing.
+          </p>
+        </div>
+
+        <button type="submit" class="btn btn-primary submit-btn" id="submitBtn" disabled>
+          Opt in to dispatch alerts
+        </button>
+      </form>
+
+      <div class="success" id="success">
+        <i data-lucide="check-circle"></i>
+        <h2>You're opted in</h2>
+        <p>You'll receive a confirmation text shortly, then dispatch alerts as loads are assigned.<br>Reply STOP at any time to unsubscribe.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; 2026 TekOmni LLC. All rights reserved.</span>
+        <span>GoFleetAI.com</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    const cb = document.getElementById('consent');
+    const btn = document.getElementById('submitBtn');
+    const form = document.getElementById('optinForm');
+    cb.addEventListener('change', () => { btn.disabled = !cb.checked; });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fn = document.getElementById('firstName').value.trim();
+      const ln = document.getElementById('lastName').value.trim();
+      const ph = document.getElementById('phone').value.trim();
+      if (!fn || !ln || !ph || !cb.checked) return;
+      document.getElementById('formCard').querySelector('form').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
