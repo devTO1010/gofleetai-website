@@ -159,12 +159,12 @@
 
         <div class="consent">
           <div class="consent-row">
-            <input type="checkbox" id="consent" required>
+            <input type="checkbox" id="consent">
             <label for="consent">
-              By providing my mobile number and checking this box, I agree to receive recurring
+              <strong>(Optional)</strong> By checking this box, I agree to receive recurring
               SMS load-dispatch notifications from <strong>GoFleetAI</strong> (operated by
-              <strong>TekOmni LLC</strong>) at the number above. Consent is not a condition of
-              employment.
+              <strong>TekOmni LLC</strong>) at the mobile number above. Consent is voluntary and is
+              not a condition of employment or of submitting this form.
             </label>
           </div>
           <p class="fine-print">
@@ -175,8 +175,8 @@
           </p>
         </div>
 
-        <button type="submit" class="btn btn-primary submit-btn" id="submitBtn" disabled>
-          Opt in to dispatch alerts
+        <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">
+          Submit
         </button>
       </form>
 
@@ -200,17 +200,23 @@
   <script>
     lucide.createIcons();
     const cb = document.getElementById('consent');
-    const btn = document.getElementById('submitBtn');
     const form = document.getElementById('optinForm');
-    cb.addEventListener('change', () => { btn.disabled = !cb.checked; });
+    // SMS consent is OPTIONAL. The form submits with the box checked OR unchecked —
+    // providing a mobile number never forces SMS opt-in (10DLC carrier requirement).
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const fn = document.getElementById('firstName').value.trim();
       const ln = document.getElementById('lastName').value.trim();
       const ph = document.getElementById('phone').value.trim();
-      if (!fn || !ln || !ph || !cb.checked) return;
-      document.getElementById('formCard').querySelector('form').style.display = 'none';
-      document.getElementById('success').style.display = 'block';
+      if (!fn || !ln || !ph) return; // name + mobile required; consent is NOT
+      const optedIn = cb.checked;
+      const success = document.getElementById('success');
+      success.querySelector('h2').textContent = optedIn ? "You're opted in" : "Thanks — details received";
+      success.querySelector('p').innerHTML = optedIn
+        ? "You'll receive a confirmation text shortly, then dispatch alerts as loads are assigned.<br>Reply STOP at any time to unsubscribe."
+        : "Your details were submitted. You did <strong>not</strong> opt into SMS alerts — check the consent box anytime if you'd like to receive dispatch texts.";
+      form.style.display = 'none';
+      success.style.display = 'block';
       lucide.createIcons();
     });
   </script>
