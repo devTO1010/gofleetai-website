@@ -218,7 +218,33 @@
     /* ===== FINAL CTA ===== */
     .final { text-align: center; padding: 120px 0; }
     .final h2 { font-size: clamp(30px, 5vw, 50px); font-weight: 900; letter-spacing: -1px; margin-bottom: 18px; }
-    .final p { font-size: 18px; color: var(--text-secondary); margin-bottom: 36px; }
+    .final p { font-size: 18px; color: var(--text-secondary); margin-bottom: 0; }
+
+    /* ===== INTAKE + SCHEDULER ===== */
+    .intake-wrap { max-width: 640px; margin: 40px auto 0; text-align: left; }
+    .intake-form { display: flex; flex-direction: column; gap: 12px; }
+    .intake-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .intake-input {
+      flex: 1; min-width: 180px; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 13px 16px; color: var(--text-primary); font-size: 15px;
+      font-family: inherit; transition: border-color .2s;
+    }
+    .intake-input::placeholder { color: var(--text-muted); }
+    .intake-input:focus { outline: none; border-color: var(--accent); }
+    .intake-input option { background: var(--bg-card); color: var(--text-primary); }
+    .intake-submit {
+      white-space: nowrap; border: none; cursor: pointer; font-family: inherit;
+      font-size: 15px; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .intake-submit i { width: 16px; height: 16px; }
+    .cal-embed-card {
+      margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 8px; overflow: hidden;
+    }
+    #gofleetai-cal-embed { width: 100%; min-height: 560px; }
+    .cal-fallback { text-align: center; padding: 10px; font-size: 13px; color: var(--text-muted); }
+    .cal-fallback a { color: var(--accent-light); text-decoration: none; }
+    .cal-fallback a:hover { text-decoration: underline; }
 
     footer { border-top: 1px solid var(--border); padding: 28px 0; text-align: center; font-size: 13px; color: var(--text-muted); }
     footer a { color: var(--text-secondary); text-decoration: none; }
@@ -460,7 +486,31 @@
   <section class="final">
     <div class="container">
       <h2>See your operation<br><span class="gradient-text">in one system.</span></h2>
-      <p>There's no sales team here. <a href="mailto:sales@tekomni.com" style="color: var(--accent-light); text-decoration: none; font-weight: 700;">Talk to the people who use it every day.</a></p>
+      <p>There's no sales team here. Talk to the people who use it every day.</p>
+
+      <div class="intake-wrap" id="intake-wrap">
+        <form class="intake-form" id="intake-form">
+          <div class="intake-row">
+            <input class="intake-input" id="intake-name" type="text" placeholder="Your name" required autocomplete="name">
+            <input class="intake-input" id="intake-email" type="email" placeholder="Work email" required autocomplete="email">
+          </div>
+          <div class="intake-row">
+            <select class="intake-input" id="intake-fleet-size" required>
+              <option value="" disabled selected>Fleet size</option>
+              <option value="1-10">1–10 trucks</option>
+              <option value="11-50">11–50 trucks</option>
+              <option value="51-150">51–150 trucks</option>
+              <option value="150+">150+ trucks</option>
+            </select>
+            <button type="submit" class="btn btn-primary intake-submit">See it on a call <i data-lucide="arrow-right"></i></button>
+          </div>
+        </form>
+
+        <div class="cal-embed-card" id="cal-embed-card" hidden>
+          <div id="gofleetai-cal-embed"></div>
+          <div class="cal-fallback">Calendar not loading? <a href="mailto:TellMeMore@TekOmni.com?subject=GoFleetAI%20demo">email us directly →</a></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -474,6 +524,68 @@
       for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
+
+  <script>
+    (function () {
+      const form = document.getElementById('intake-form');
+      const calCard = document.getElementById('cal-embed-card');
+      if (!form || !calCard) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('intake-name').value.trim();
+        const email = document.getElementById('intake-email').value.trim();
+        const fleetSize = document.getElementById('intake-fleet-size').value;
+        if (!name || !email || !fleetSize) return;
+
+        form.hidden = true;
+        calCard.hidden = false;
+        loadCalEmbed(name, email, fleetSize);
+      });
+
+      let calLoaded = false;
+      function loadCalEmbed(name, email, fleetSize) {
+        if (calLoaded) return;
+        calLoaded = true;
+
+        (function (C, A, L) {
+          let p = function (a, ar) { a.q.push(ar); };
+          let d = C.document;
+          C.Cal = C.Cal || function () {
+            let cal = C.Cal; let ar = arguments;
+            if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; }
+            if (ar[0] === L) {
+              const api = function () { p(api, arguments); };
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); }
+              else p(cal, ar);
+              return;
+            }
+            p(cal, ar);
+          };
+        })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+        Cal('init', 'gofleetai', { origin: 'https://cal.com' });
+
+        const query = new URLSearchParams({ 'fleet-size': fleetSize });
+        Cal.ns['gofleetai']('inline', {
+          elementOrSelector: '#gofleetai-cal-embed',
+          config: { layout: 'month_view', name: name, email: email },
+          calLink: 'william-pimentel-zbzwpx/gofleetai-demo-meeting?' + query.toString(),
+        });
+        Cal.ns['gofleetai']('ui', {
+          theme: 'dark',
+          cssVarsPerTheme: {
+            light: { 'cal-brand': '#3b82f6' },
+            dark: { 'cal-brand': '#3b82f6' }
+          },
+          hideEventTypeDetails: false,
+          layout: 'month_view'
+        });
+      }
+    })();
   </script>
 </body>
 </html>
