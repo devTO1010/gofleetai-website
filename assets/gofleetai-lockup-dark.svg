@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 150" width="560" height="150">
+  <defs></defs>
+  <rect width="560" height="150" fill="#1d2330"></rect>
+  <g transform="translate(8 27) scale(0.96)" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="13">
+    <path d="M19 29 L42 50 L19 71" stroke="#3f6fd6" stroke-opacity="0.30"></path>
+    <path d="M38 29 L61 50 L38 71" stroke="#3f6fd6" stroke-opacity="0.62"></path>
+    <path d="M57 29 L80 50 L57 71" stroke="#7cb8f0"></path>
+  </g>
+  <text class="wm" x="120" y="105"><tspan fill="#ffffff">GoFleet</tspan><tspan fill="#7cb8f0">AI</tspan></text>
+</svg>
