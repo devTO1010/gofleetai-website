@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoFleetAI — The All-in-One TMS</title>
+  <meta name="description" content="Dispatch, drivers, money, compliance, maintenance, and yard revenue — one system, one set of numbers.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+  <meta name="theme-color" content="#0a0a0f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-card-hover: #1c1c28;
+      --border: #2a2a3a;
+      --text-primary: #f0f0f5;
+      --text-secondary: #8888a0;
+      --text-muted: #5a5a70;
+      --accent: #3b82f6;
+      --accent-light: #60a5fa;
+      --accent-glow: rgba(59, 130, 246, 0.15);
+      --green: #22c55e;
+      --orange: #f97316;
+      --purple: #a855f7;
+      --cyan: #06b6d4;
+      --red: #ef4444;
+      --gradient-hero: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #22c55e 100%);
+      --gradient-text: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .gradient-text {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    section { padding: 96px 0; position: relative; }
+    .section-label {
+      font-size: 13px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent-light); margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(30px, 4.6vw, 46px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px; }
+    .section-desc { font-size: 18px; color: var(--text-secondary); max-width: 680px; line-height: 1.7; }
+
+    /* ===== TOP BAR ===== */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10, 10, 15, 0.82); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1120px; margin: 0 auto; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; text-decoration: none; color: var(--text-primary); }
+    .brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gradient-hero); box-shadow: 0 0 12px rgba(59,130,246,.8); }
+    .topbar .cta-mini {
+      font-size: 14px; font-weight: 600; color: #fff; text-decoration: none;
+      background: var(--accent); padding: 9px 18px; border-radius: 8px;
+      transition: background .2s;
+    }
+    .topbar .cta-mini:hover { background: var(--accent-light); }
+
+    /* ===== HERO ===== */
+    .hero { padding: 120px 0 90px; text-align: center; position: relative; }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 45% at 50% 0%, rgba(59,130,246,.16), transparent 70%),
+        radial-gradient(ellipse 40% 35% at 80% 20%, rgba(6,182,212,.08), transparent 70%);
+    }
+    .hero h1 { font-size: clamp(38px, 6.4vw, 68px); font-weight: 900; line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 22px; }
+    .hero .sub { font-size: clamp(17px, 2.2vw, 21px); color: var(--text-secondary); max-width: 720px; margin: 0 auto 36px; line-height: 1.65; }
+    .hero .sub strong { color: var(--text-primary); font-weight: 600; }
+    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 64px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 16px; font-weight: 700; text-decoration: none;
+      padding: 14px 28px; border-radius: 10px; transition: transform .15s, background .2s, border-color .2s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 0 28px rgba(59,130,246,.35); }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text-primary); background: rgba(255,255,255,.02); }
+    .btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .domain-belt { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 900px; margin: 0 auto; }
+    .domain-chip {
+      font-size: 13px; font-weight: 600; color: var(--text-secondary);
+      border: 1px solid var(--border); border-radius: 999px; padding: 7px 15px;
+      background: var(--bg-card); white-space: nowrap;
+    }
+    .domain-chip i { width: 13px; height: 13px; vertical-align: -2px; margin-right: 6px; color: var(--accent-light); }
+
+    /* ===== PROBLEM ===== */
+    .problem { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 44px 0 36px; }
+    .stack-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 22px; position: relative;
+    }
+    .stack-card i { width: 22px; height: 22px; color: var(--text-muted); margin-bottom: 12px; }
+    .stack-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .stack-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+    .stack-card .price-tag {
+      position: absolute; top: 18px; right: 18px; font-size: 11px; font-weight: 600;
+      color: var(--orange); background: rgba(249,115,22,.1); border: 1px solid rgba(249,115,22,.25);
+      padding: 3px 9px; border-radius: 999px; letter-spacing: .5px;
+    }
+    .leak-line {
+      display: flex; align-items: center; gap: 12px; justify-content: center;
+      font-size: 17px; color: var(--text-primary); font-weight: 600; text-align: center; flex-wrap: wrap;
+    }
+    .leak-line i { width: 20px; height: 20px; color: var(--red); }
+
+    /* ===== ANSWER ===== */
+    .answer { text-align: center; }
+    .one-row { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 44px; }
+    .one-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 28px 34px; min-width: 200px;
+    }
+    .one-card .big { font-size: 30px; font-weight: 900; letter-spacing: -1px; }
+    .one-card .small { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+
+    /* ===== PIPELINES ===== */
+    .pipeline-list { display: flex; flex-direction: column; gap: 22px; margin-top: 52px; }
+    .pipeline {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 30px 32px; transition: border-color .2s, transform .2s;
+    }
+    .pipeline:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .pipeline-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+    .pipeline-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent-light); font-weight: 500; }
+    .pipeline-head h3 { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .stage {
+      font-size: 13.5px; font-weight: 600; padding: 7px 14px; border-radius: 999px;
+      background: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .stage.hot { border-color: rgba(34,197,94,.45); color: #6ee7a0; background: rgba(34,197,94,.07); }
+    .flow i { width: 15px; height: 15px; color: var(--text-muted); flex: none; }
+    .payoff { font-size: 15.5px; color: var(--text-secondary); line-height: 1.6; }
+    .payoff strong { color: var(--text-primary); font-weight: 700; }
+
+    /* ===== WHY US ===== */
+    .whyus { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .compare-wrap { overflow-x: auto; margin-top: 48px; border: 1px solid var(--border); border-radius: var(--radius-lg); }
+    table.compare { width: 100%; border-collapse: collapse; min-width: 720px; background: var(--bg-card); }
+    .compare th, .compare td { padding: 13px 18px; text-align: center; font-size: 14.5px; border-bottom: 1px solid var(--border); }
+    .compare th { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; background: var(--bg-secondary); }
+    .compare td:first-child, .compare th:first-child { text-align: left; font-weight: 600; }
+    .compare tr:last-child td { border-bottom: none; }
+    .compare .yes { color: var(--green); font-weight: 800; }
+    .compare .no { color: var(--text-muted); }
+    .compare .col-us { background: rgba(59,130,246,.07); }
+    .compare th.col-us { color: var(--accent-light); }
+    .five-products { margin-top: 34px; font-size: 18px; text-align: center; color: var(--text-secondary); }
+    .five-products strong { color: var(--text-primary); }
+
+    /* ===== OUTCOMES ===== */
+    .outcome-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 52px; }
+    .outcome {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 28px; transition: border-color .2s, transform .2s;
+    }
+    .outcome:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .outcome i { width: 26px; height: 26px; color: var(--accent-light); margin-bottom: 16px; }
+    .outcome h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.2px; }
+    .outcome p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ===== AI TRUST ===== */
+    .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 48px; }
+    .trust-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+    .trust-card i { width: 22px; height: 22px; color: var(--green); margin-bottom: 12px; }
+    .trust-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .trust-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ===== OPERATORS ===== */
+    .operators { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
+    .op-stats { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 44px; }
+    .op-stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 26px 34px; min-width: 210px; }
+    .op-stat .big { font-size: 34px; font-weight: 900; letter-spacing: -1px; }
+    .op-stat .small { font-size: 14px; color: var(--text-secondary); margin-top: 6px; }
+
+    /* ===== FINAL CTA ===== */
+    .final { text-align: center; padding: 120px 0; }
+    .final h2 { font-size: clamp(30px, 5vw, 50px); font-weight: 900; letter-spacing: -1px; margin-bottom: 18px; }
+    .final p { font-size: 18px; color: var(--text-secondary); margin-bottom: 36px; }
+
+    footer { border-top: 1px solid var(--border); padding: 28px 0; text-align: center; font-size: 13px; color: var(--text-muted); }
+    footer a { color: var(--text-secondary); text-decoration: none; }
+    footer a:hover { color: var(--accent-light); }
+
+    /* ===== REVEAL ANIMATION ===== */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="https://gofleetai.com"><span class="brand-dot"></span>GoFleetAI</a>
+      <a class="cta-mini" href="mailto:sales@tekomni.com">Talk to sales</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>Your whole trucking business.<br><span class="gradient-text">One system.</span></h1>
+      <p class="sub">Dispatch, drivers, hiring and onboarding, settlements, invoicing, compliance, maintenance, IFTA, fuel, tolls, even yard rent — <strong>one login, one database, one set of numbers.</strong> Few products anywhere do everything GoFleetAI does today.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:sales@tekomni.com">Book a demo <i data-lucide="arrow-right"></i></a>
+        <a class="btn btn-ghost" href="https://go.gofleetai.com">See the platform</a>
+      </div>
+      <div class="domain-belt">
+        <span class="domain-chip"><i data-lucide="route"></i>Dispatch</span>
+        <span class="domain-chip"><i data-lucide="smartphone"></i>Driver app</span>
+        <span class="domain-chip"><i data-lucide="user-plus"></i>Driver onboarding</span>
+        <span class="domain-chip"><i data-lucide="wallet"></i>Settlements</span>
+        <span class="domain-chip"><i data-lucide="file-text"></i>Invoicing</span>
+        <span class="domain-chip"><i data-lucide="shield-check"></i>Compliance</span>
+        <span class="domain-chip"><i data-lucide="wrench"></i>Maintenance</span>
+        <span class="domain-chip"><i data-lucide="map"></i>Live GPS</span>
+        <span class="domain-chip"><i data-lucide="fuel"></i>Fuel &amp; tolls</span>
+        <span class="domain-chip"><i data-lucide="calculator"></i>IFTA</span>
+        <span class="domain-chip"><i data-lucide="warehouse"></i>Yard rent</span>
+        <span class="domain-chip"><i data-lucide="sparkles"></i>AI paperwork</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="container">
+      <div class="section-label reveal">The problem</div>
+      <h2 class="section-title reveal">How many systems run your fleet today?</h2>
+      <p class="section-desc reveal">The typical operation is a patchwork — each piece with its own bill, its own login, and its own version of the truth.</p>
+      <div class="stack-grid">
+        <div class="stack-card reveal"><span class="price-tag">SUBSCRIPTION</span><i data-lucide="clipboard-list"></i><h3>A dispatch tool</h3><p>That stops at the load board and never meets your money.</p></div>
+        <div class="stack-card reveal"><span class="price-tag">SUBSCRIPTION</span><i data-lucide="satellite"></i><h3>A GPS / ELD portal</h3><p>That shows the truck but doesn't know what a load is.</p></div>
+        <div class="stack-card reveal"><span class="price-tag">EVERY FRIDAY</span><i data-lucide="table"></i><h3>Payroll spreadsheets</h3><p>Where one silent formula error compounds week after week.</p></div>
+        <div class="stack-card reveal"><span class="price-tag">SUBSCRIPTION</span><i data-lucide="receipt"></i><h3>Accounting software</h3><p>That can't tell detention from line haul — so someone retypes.</p></div>
+        <div class="stack-card reveal"><span class="price-tag">PAPER</span><i data-lucide="file-warning"></i><h3>DVIRs and doc binders</h3><p>Where expirations hide until the truck legally can't roll.</p></div>
+        <div class="stack-card reveal"><span class="price-tag">TEXT MESSAGES</span><i data-lucide="warehouse"></i><h3>Parking rent by memory</h3><p>Who paid, whose card failed, who's three months behind.</p></div>
+      </div>
+      <div class="leak-line reveal"><i data-lucide="trending-down"></i>Every hand-off between those tools is where money leaks.</div>
+    </div>
+  </section>
+
+  <!-- ANSWER -->
+  <section class="answer">
+    <div class="container">
+      <div class="section-label reveal">The answer</div>
+      <h2 class="section-title reveal">A true all-in-one. <span class="gradient-text">Not a bundle — one system.</span></h2>
+      <p class="section-desc reveal" style="margin: 0 auto;">The rate con that arrives by email becomes the load. The load becomes the driver's pay and the customer's invoice. The truck's GPS becomes arrival times, detention clocks, and delivery proof. Same numbers, start to finish.</p>
+      <div class="one-row">
+        <div class="one-card reveal"><div class="big gradient-text">1</div><div class="small">login</div></div>
+        <div class="one-card reveal"><div class="big gradient-text">1</div><div class="small">database</div></div>
+        <div class="one-card reveal"><div class="big gradient-text">1</div><div class="small">set of numbers</div></div>
+        <div class="one-card reveal"><div class="big gradient-text">1</div><div class="small">bill to pay</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIPELINES -->
+  <section>
+    <div class="container">
+      <div class="section-label reveal">How it runs your business</div>
+      <h2 class="section-title reveal">Five pipelines. End to end. No hand-offs.</h2>
+      <p class="section-desc reveal">Your operation is a set of pipelines. GoFleetAI runs every one of them from the first event to the money.</p>
+
+      <div class="pipeline-list">
+        <div class="pipeline reveal">
+          <div class="pipeline-head"><span class="pipeline-num">01</span><h3>Freight to cash</h3></div>
+          <div class="flow">
+            <span class="stage">Tender lands in your inbox</span><i data-lucide="chevron-right"></i>
+            <span class="stage">AI reads it into a load</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Dispatch</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Live tracking</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Delivered, POD in hand</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Invoiced same day</span><i data-lucide="chevron-right"></i>
+            <span class="stage hot">Paid</span>
+          </div>
+          <p class="payoff"><strong>Bill the day you deliver.</strong> Nobody retypes a rate con, so the number on the invoice is the number on the rate con.</p>
+        </div>
+
+        <div class="pipeline reveal">
+          <div class="pipeline-head"><span class="pipeline-num">02</span><h3>Hire to settled driver</h3></div>
+          <div class="flow">
+            <span class="stage">Hire &amp; onboard</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Qualification file builds itself</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Driver app invite</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Dispatch</span><i data-lucide="chevron-right"></i>
+            <span class="stage hot">Settled — paid right, on time</span>
+          </div>
+          <p class="payoff"><strong>A new driver is road-ready in days.</strong> Payday runs itself, and the statement shows the math — load by load — so drivers don't argue with it.</p>
+        </div>
+
+        <div class="pipeline reveal">
+          <div class="pipeline-head"><span class="pipeline-num">03</span><h3>Document to audit-ready</h3></div>
+          <div class="flow">
+            <span class="stage">Every credential tracked</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Reminders before expiry</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Inspections &amp; repairs certified</span><i data-lucide="chevron-right"></i>
+            <span class="stage hot">Audit-ready, always</span>
+          </div>
+          <p class="payoff"><strong>The DOT audit becomes a filing cabinet you already have.</strong> Nothing expires unannounced — not a med card, not a COI, not a registration.</p>
+        </div>
+
+        <div class="pipeline reveal">
+          <div class="pipeline-head"><span class="pipeline-num">04</span><h3>Defect to back earning</h3></div>
+          <div class="flow">
+            <span class="stage">Driver writes it up (DVIR)</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Shop sees it instantly</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Repair &amp; certify</span><i data-lucide="chevron-right"></i>
+            <span class="stage hot">Back on the road</span>
+          </div>
+          <p class="payoff"><strong>Trucks spend their time earning, not waiting.</strong> Dispatch and the shop share one calendar, so they stop double-booking the same truck.</p>
+        </div>
+
+        <div class="pipeline reveal">
+          <div class="pipeline-head"><span class="pipeline-num">05</span><h3>Empty space to rent collected</h3></div>
+          <div class="flow">
+            <span class="stage">Spaces &amp; tenants</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Card on file</span><i data-lucide="chevron-right"></i>
+            <span class="stage">Rent bills itself monthly</span><i data-lucide="chevron-right"></i>
+            <span class="stage hot">Collected</span>
+          </div>
+          <p class="payoff"><strong>Yard income with no chasing.</strong> A fleet with spare yard space turns it into automated monthly revenue — in the same system that runs the trucks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="whyus">
+    <div class="container">
+      <div class="section-label reveal">Why GoFleetAI</div>
+      <h2 class="section-title reveal">The alternative isn't another product.<br>It's five products.</h2>
+      <p class="section-desc reveal">Most software in this industry does one slice and leaves you to stitch the rest together. Stitching is where the leaks live.</p>
+
+      <div class="compare-wrap reveal">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th>What you need</th>
+              <th>Dispatch tool</th>
+              <th>ELD portal</th>
+              <th>Payroll service</th>
+              <th>Accounting app</th>
+              <th class="col-us">GoFleetAI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Loads &amp; dispatch board</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+            <tr><td>Live GPS, geofencing &amp; ELD</td><td class="no">—</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+            <tr><td>Driver app with POD capture</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+            <tr><td>Driver hiring &amp; onboarding</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+            <tr><td>Settlements, every pay model</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+            <tr><td>Invoicing, AR &amp; factoring send</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td><td class="yes col-us">✓</td></tr>
+            <tr><td>Compliance, DQF &amp; accident desk</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+            <tr><td>Maintenance &amp; mechanic workspace</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+            <tr><td>IFTA, fuel cards &amp; toll import</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+            <tr><td>Yard parking rent, auto-billed</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+            <tr><td>AI that reads your paperwork</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="five-products reveal">When dispatch, pay, invoicing, and reports read the same load, <strong>the quote, the paycheck, and the invoice always agree.</strong> No stack of separate tools can promise that.</p>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section>
+    <div class="container">
+      <div class="section-label reveal">What changes for you</div>
+      <h2 class="section-title reveal">The outcomes owners feel first</h2>
+      <div class="outcome-grid">
+        <div class="outcome reveal"><i data-lucide="zap"></i><h3>Bill the day you deliver</h3><p>The POD arrives from the dock through the driver app — not from the cab floor a week later. Cash flow follows.</p></div>
+        <div class="outcome reveal"><i data-lucide="hourglass"></i><h3>Detention bills itself</h3><p>The clock runs from the appointment, dwell is tracked at every stop, and the charge lands on the load. It stops being a favor you forget to invoice.</p></div>
+        <div class="outcome reveal"><i data-lucide="badge-check"></i><h3>Pay right the first time</h3><p>One spreadsheet-era error was silently over-deducting a single driver about $11,400 a year. This design is what ended it.</p></div>
+        <div class="outcome reveal"><i data-lucide="bar-chart-3"></i><h3>Know your real margin</h3><p>By load, lane, customer, truck, and driver-week — with fuel, tolls, and overhead in the math, not guessed.</p></div>
+        <div class="outcome reveal"><i data-lucide="inbox"></i><h3>Retyping ends</h3><p>Rate cons, tenders, licenses, and insurance pages are read by AI into checked, reviewable entries. Hours a week come back.</p></div>
+        <div class="outcome reveal"><i data-lucide="moon"></i><h3>The owner sleeps</h3><p>Expirations watched, accident night has a procedure, and the whiteboard retires. The business stops living in one person's head.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI TRUST -->
+  <section class="whyus">
+    <div class="container">
+      <div class="section-label reveal">AI you can put in front of customers</div>
+      <h2 class="section-title reveal">AI where it pays. A human where it matters.</h2>
+      <p class="section-desc reveal">The AI reads paperwork and types it in. People decide what gets booked and what gets paid. And your data stays yours:</p>
+      <div class="trust-grid">
+        <div class="trust-card reveal"><i data-lucide="eye-off"></i><h3>No memory</h3><p>Every document is a single, sealed request — read, answered, over. Nothing carries between requests.</p></div>
+        <div class="trust-card reveal"><i data-lucide="shield-off"></i><h3>Never trains on your data</h3><p>Business API terms keep your freight, rates, and drivers out of anyone's AI training.</p></div>
+        <div class="trust-card reveal"><i data-lucide="lock"></i><h3>Sensitive docs, storage denied</h3><p>Driver licenses, med cards, and carrier packets are sent with an explicit no-storage requirement.</p></div>
+        <div class="trust-card reveal"><i data-lucide="user-check"></i><h3>Your account learns, not the AI</h3><p>Corrections live in your own account and sharpen your future parses. They never leave.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPERATORS -->
+  <section class="operators">
+    <div class="container">
+      <div class="section-label reveal">Provenance</div>
+      <h2 class="section-title reveal">Built inside a working fleet</h2>
+      <p class="section-desc reveal" style="margin: 0 auto;">GoFleetAI was designed at a dispatch desk, not in a software lab. It runs a real trucking company every day — and it gets better every week.</p>
+      <div class="op-stats">
+        <div class="op-stat reveal"><div class="big gradient-text">1,400+</div><div class="small">product improvements in 4 months</div></div>
+        <div class="op-stat reveal"><div class="big gradient-text">18</div><div class="small">areas of the operation covered</div></div>
+        <div class="op-stat reveal"><div class="big gradient-text">2</div><div class="small">languages in the driver app</div></div>
+        <div class="op-stat reveal"><div class="big gradient-text">30→300</div><div class="small">trucks without changing systems</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="container">
+      <h2>See your operation<br><span class="gradient-text">in one system.</span></h2>
+      <p>A 30-minute walkthrough with your own workflow — from tender email to money in the bank.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:sales@tekomni.com">Book a demo <i data-lucide="arrow-right"></i></a>
+        <a class="btn btn-ghost" href="https://gofleetai.com">Visit gofleetai.com</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© 2026 TekOmni LLC · <a href="https://gofleetai.com">gofleetai.com</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="security.html">Security</a></div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>
