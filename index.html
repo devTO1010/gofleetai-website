@@ -166,6 +166,7 @@
     .blurb .fine { margin-top: 18px; font-size: 16px; color: var(--ink-2); }
     @media (max-width: 900px) { .blurb { grid-template-columns: 1fr; gap: 20px; margin-top: 80px; } }
 
+    .fineprint { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: 16px; color: var(--ink-2); max-width: 70ch; }
     /* Plain value lists: heading, sentence, no boxes */
     .values { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 64px; margin-top: 96px; }
     .values h3 { font-size: 21px; margin-bottom: 6px; }
@@ -371,6 +372,7 @@
           <li><h3>Run relay loads without the spreadsheet</h3><p>Each driver's segment gets its own bar, its own timing and its own pay, and a hand-off moves as one piece.</p></li>
           <li><h3>Settle disputes from the record</h3><p>Every load shows who changed what and when, by name, in plain words. A detention dispute or a pay question is answered in seconds, not from memory.</p></li>
         </ul>
+        <p class="fineprint">Live tracking, hours-of-service clocks, arrival detection, mileage and fault codes need an ELD or GPS provider such as Samsara or Motive for full functionality.</p>
       </div>
     </section>
 
