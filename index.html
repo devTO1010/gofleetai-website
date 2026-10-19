@@ -155,6 +155,17 @@
       .row + .row { margin-top: 80px; }
     }
 
+    .blurb { margin-top: 112px; padding: 40px 0 0; border-top: 2px solid var(--ink); display: grid; grid-template-columns: 5fr 7fr; gap: 64px; }
+    .blurb h3 { font-size: clamp(24px, 2.6vw, 30px); margin-bottom: 0; }
+    .blurb p { color: var(--ink-2); max-width: 60ch; }
+    .blurb ul { list-style: none; margin-top: 18px; }
+    .blurb li { position: relative; padding-left: 26px; margin-top: 10px; font-size: 17.5px; max-width: 60ch; }
+    .blurb li::before { content: ''; position: absolute; left: 0; top: .55em; width: 10px; height: 10px; border-radius: 50%; background: var(--sign); }
+    .blurb.first { margin-top: 0; border-top: 0; padding-top: 0; }
+    .blurb h2 { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.12; margin-bottom: 0; }
+    .blurb .fine { margin-top: 18px; font-size: 16px; color: var(--ink-2); }
+    @media (max-width: 900px) { .blurb { grid-template-columns: 1fr; gap: 20px; margin-top: 80px; } }
+
     /* Plain value lists: heading, sentence, no boxes */
     .values { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 64px; margin-top: 96px; }
     .values h3 { font-size: 21px; margin-bottom: 6px; }
@@ -340,6 +351,21 @@
           </figure>
         </div>
 
+        <div class="blurb">
+          <h3>Turn a stack of rate confirmations into draft loads in minutes</h3>
+          <div>
+            <p>Monday morning brings a pile of rate confirmations and tenders. Drop up to ten at once, or let tenders from your dispatch inbox queue up, and the AI reads each one into a draft load: customer, reference numbers, stops and appointments, commodity and every charge. You check each draft beside the original PDF, fix anything that's off and create the loads in one click.</p>
+            <ul>
+              <li>One draft load per rate confirmation, with the original PDF attached</li>
+              <li>An email asking about several lanes becomes several offers, one per lane</li>
+              <li>Customers and locations matched to your records, and a new customer created the first time you haul for them</li>
+              <li>A revised tender links to its load instead of becoming a second one</li>
+              <li>Nothing is booked or sent to a driver until a person says so</li>
+            </ul>
+            <p style="margin-top:18px">The number on the invoice is the number on the rate confirmation, because nobody retyped it.</p>
+          </div>
+        </div>
+
         <ul class="values">
           <li><h3>Never hand a driver a trip they can't legally finish</h3><p>Four hours-of-service clocks sit under every driver's name, and dragging a load shows whether it fits. Hours violations count against your safety score, so catching them first protects it.</p></li>
           <li><h3>Dispatch in one click, not ten calls</h3><p>Drag a load to a driver and press Dispatch. The driver gets it by app, email and text, with a rate confirmation ready for owner-operators and carriers.</p></li>
@@ -360,14 +386,15 @@
             <p>Most fleets quote from revenue per mile and find the truth at tax time. GoFleetAI counts the miles no load paid for, and the costs your books already hold.</p>
             <ul>
               <li><strong>Know your true cost per mile.</strong> Each truck's daily miles come from its ELD odometer, so empty miles are in the number. Quote against what a mile actually costs.</li>
+              <li><strong>Truck and trailer maintenance, per mile.</strong> Your repair invoices for trucks and trailers become one maintenance cost per mile, and every quote opens with it. No more guessing what upkeep adds to a lane.</li>
               <li><strong>Your QuickBooks costs, already in your margins.</strong> Choose which cost categories take their amount from QuickBooks. The books are read every night and each cost lands on the trucks that carried it. No month-end spreadsheet.</li>
               <li><strong>Map your books in minutes.</strong> Assign dozens of QuickBooks accounts to a cost category in one move instead of one at a time.</li>
             </ul>
           </div>
           <figure class="shot small">
-            <img src="assets/screens/load-margin-920.webp" srcset="assets/screens/load-margin-600.webp 600w, assets/screens/load-margin-920.webp 920w" sizes="(max-width: 900px) 100vw, 460px" width="920" height="760" loading="lazy"
-                 alt="A load's financials: total miles, deadhead miles, revenue, expenses, driver pay, projected fuel and profit, with revenue per mile, cost per mile and margin.">
-            <figcaption class="caption">Deadhead, cost per mile and margin on every load, before the truck rolls.</figcaption>
+            <img src="assets/screens/margin-calculator-920.webp" srcset="assets/screens/margin-calculator-600.webp 600w, assets/screens/margin-calculator-920.webp 920w" sizes="(max-width: 900px) 100vw, 460px" width="920" height="1018" loading="lazy"
+                 alt="The margin calculator for a quote: route, loaded and empty miles, customer rate, then costs for driver pay, fuel, maintenance per mile and other, with total cost, margin, profit and revenue per mile.">
+            <figcaption class="caption">Quote with the real margin: driver pay, fuel and maintenance per mile are in before you answer.</figcaption>
           </figure>
         </div>
       </div>
@@ -548,6 +575,25 @@
           <li><strong>2</strong><span>languages in the driver and mechanic apps</span></li>
           <li><strong>30 to 300</strong><span>trucks without changing systems</span></li>
         </ul>
+      </div>
+    </section>
+
+    <!-- CONSULTANT -->
+    <section id="consultant">
+      <div class="wrap">
+        <div class="blurb first">
+          <h2>Want an expert to build it with you?</h2>
+          <div>
+            <p>GoFleetAI can put an AI expert consultant on your account. They learn how your operation really runs, then help you automate the routine work and build the dashboards and analytics you manage the business from.</p>
+            <ul>
+              <li>Find the hours your team loses to repeat work, and automate them</li>
+              <li>Dashboards and reports built around the numbers you actually steer by</li>
+              <li>Your AI assistant connected so the right people can ask the right questions</li>
+              <li>Built on your live data, inside the system your team already uses</li>
+            </ul>
+            <p class="fine">Offered as an add-on to your plan, at an additional cost. Ask about it on your teardown call.</p>
+          </div>
+        </div>
       </div>
     </section>
 
