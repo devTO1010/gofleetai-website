@@ -7,534 +7,545 @@
   <meta name="description" content="Your whole trucking business in one system: dispatch, driver app, driver hiring and onboarding, settlements, invoicing, compliance, maintenance, IFTA, fuel, tolls, and yard rent. All of it in one place, one set of numbers, one bill.">
   <meta name="keywords" content="TMS, transportation management system, all-in-one TMS, trucking software, fleet management, driver settlements, dispatch software, GPS tracking, IFTA software, driver app">
   <meta property="og:title" content="GoFleetAI — The All-in-One TMS for Trucking">
-  <meta property="og:description" content="Your whole trucking business. One system. Dispatch, drivers, money, compliance, maintenance, and yard revenue — all of it in one place, one set of numbers, one bill.">
+  <meta property="og:description" content="Your whole trucking business. One system. Dispatch, drivers, money, compliance, maintenance, and yard revenue — one place, one set of numbers, one bill.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gofleetai.com">
-  <meta property="og:image" content="https://gofleetai.com/assets/gofleetai-icon-512.png">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:image" content="https://gofleetai.com/assets/gofleetai-icon-512.png">
+  <meta property="og:image" content="https://gofleetai.com/assets/og-dispatch-board.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://gofleetai.com/assets/og-dispatch-board.png">
   <link rel="canonical" href="https://gofleetai.com">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-256.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <meta name="theme-color" content="#0a0a0f">
+  <meta name="theme-color" content="#00663f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/screens/dispatch-board-2000.webp" imagesrcset="assets/screens/dispatch-board-1000.webp 1000w, assets/screens/dispatch-board-2000.webp 2000w" imagesizes="(max-width: 1180px) 100vw, 1132px">
   <style>
+    /*
+     * Design notes. Palette and type borrow from US highway guide signs,
+     * which are built to be read fast: white Overpass (a Highway Gothic
+     * descendant) on guide-sign green, used once, for the hero. Everything
+     * else is quiet: dark ink on white, large body text, short lines, and
+     * real screens from the app doing the explaining.
+     */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg-primary: #0a0a0f;
-      --bg-secondary: #111118;
-      --bg-card: #16161f;
-      --bg-card-hover: #1c1c28;
-      --border: #2a2a3a;
-      --text-primary: #f0f0f5;
-      --text-secondary: #8888a0;
-      --text-muted: #5a5a70;
-      --accent: #3b82f6;
-      --accent-light: #60a5fa;
-      --accent-glow: rgba(59, 130, 246, 0.15);
-      --green: #22c55e;
-      --orange: #f97316;
-      --purple: #a855f7;
-      --cyan: #06b6d4;
-      --red: #ef4444;
-      --gradient-hero: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #22c55e 100%);
-      --gradient-text: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
-      --radius: 12px;
-      --radius-lg: 20px;
+      --paper: #ffffff;
+      --band: #eef3f1;
+      --ink: #17202b;
+      --ink-2: #45505e;
+      --rule: #d3dbe2;
+      --sign: #00663f;
+      --sign-deep: #00512f;
+      --go: #1d5fd6;
+      --go-deep: #174ead;
+      --amber: #f2b200;
+      --measure: 62ch;
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
+      font-family: 'Overpass', 'Segoe UI', system-ui, sans-serif;
+      font-size: 19px;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--paper);
       -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-    .gradient-text {
-      background: var(--gradient-text);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    section { padding: 96px 0; position: relative; }
-    .section-label {
-      font-size: 13px; font-weight: 600; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--accent-light); margin-bottom: 12px;
-    }
-    .section-title { font-size: clamp(30px, 4.6vw, 46px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px; }
-    .section-desc { font-size: 18px; color: var(--text-secondary); max-width: 680px; line-height: 1.7; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: var(--go); text-underline-offset: 3px; }
+    a:hover { color: var(--go-deep); }
+    :focus-visible { outline: 3px solid var(--go); outline-offset: 3px; border-radius: 4px; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
-    /* ===== TOP BAR ===== */
-    .topbar {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(10, 10, 15, 0.82); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    .topbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1120px; margin: 0 auto; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; text-decoration: none; color: var(--text-primary); }
-    .brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gradient-hero); box-shadow: 0 0 12px rgba(59,130,246,.8); }
-    .topbar .cta-mini {
-      font-size: 14px; font-weight: 600; color: #fff; text-decoration: none;
-      background: var(--accent); padding: 9px 18px; border-radius: 8px;
-      transition: background .2s;
-    }
-    .topbar .cta-mini:hover { background: var(--accent-light); }
-    .topbar-links { display: flex; align-items: center; gap: 22px; }
-    .topbar-links a.plain { font-size: 14px; font-weight: 600; color: var(--text-secondary); text-decoration: none; transition: color .2s; }
-    .topbar-links a.plain:hover { color: var(--text-primary); }
-    .nav-logo-icon {
-      width: 30px; height: 30px; border-radius: 8px; background: var(--gradient-hero);
-      display: flex; align-items: center; justify-content: center;
-    }
-    @media (max-width: 560px) { .topbar-links a.plain { display: none; } }
+    h1, h2, h3 { font-weight: 800; letter-spacing: -0.01em; }
+    h2 { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.12; margin-bottom: 16px; }
+    h3 { font-size: clamp(22px, 2.2vw, 27px); line-height: 1.2; margin-bottom: 12px; }
+    .lede { font-size: 21px; color: var(--ink-2); max-width: var(--measure); }
+    section { padding: 104px 0; }
+    .band { background: var(--band); }
 
-    /* ===== HERO ===== */
-    .hero { padding: 120px 0 90px; text-align: center; position: relative; }
-    .hero::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 60% 45% at 50% 0%, rgba(59,130,246,.16), transparent 70%),
-        radial-gradient(ellipse 40% 35% at 80% 20%, rgba(6,182,212,.08), transparent 70%);
-    }
-    .hero h1 { font-size: clamp(38px, 6.4vw, 68px); font-weight: 900; line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 22px; }
-    .hero .sub { font-size: clamp(17px, 2.2vw, 21px); color: var(--text-secondary); max-width: 720px; margin: 0 auto 36px; line-height: 1.65; }
-    .hero .sub strong { color: var(--text-primary); font-weight: 600; }
-    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 64px; }
+    /* Buttons */
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 16px; font-weight: 700; text-decoration: none;
-      padding: 14px 28px; border-radius: 10px; transition: transform .15s, background .2s, border-color .2s;
+      display: inline-block; font: inherit; font-weight: 800; font-size: 18px; line-height: 1.2;
+      text-decoration: none; padding: 16px 26px; border-radius: 10px; border: 2px solid transparent; cursor: pointer;
     }
-    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 0 28px rgba(59,130,246,.35); }
-    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
-    .btn-ghost { border: 1px solid var(--border); color: var(--text-primary); background: rgba(255,255,255,.02); }
-    .btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .domain-belt { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 900px; margin: 0 auto; }
-    .domain-chip {
-      font-size: 13px; font-weight: 600; color: var(--text-secondary);
-      border: 1px solid var(--border); border-radius: 999px; padding: 7px 15px;
-      background: var(--bg-card); white-space: nowrap;
+    .btn-go { background: var(--go); color: #fff; }
+    .btn-go:hover { background: var(--go-deep); color: #fff; }
+    .btn-on-sign { background: #fff; color: var(--sign-deep); }
+    .btn-on-sign:hover { background: #e6f2ec; color: var(--sign-deep); }
+
+    /* Top bar */
+    .topbar { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; }
+    .brand img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav { display: flex; align-items: center; gap: 26px; font-size: 17px; font-weight: 600; }
+    .nav a { color: var(--ink); text-decoration: none; }
+    .nav a:hover { color: var(--go); }
+    .nav .btn { font-size: 16px; padding: 10px 18px; color: #fff; }
+    @media (max-width: 720px) { .nav .plain { display: none; } }
+
+    /* Hero: the one loud element, a guide sign */
+    .hero { padding: 40px 0 0; }
+    .sign {
+      position: relative; background: var(--sign); color: #fff; border-radius: 22px;
+      padding: 64px 72px 190px;
+      box-shadow: inset 0 0 0 10px var(--sign), inset 0 0 0 14px #fff;
     }
-    .domain-chip i { width: 13px; height: 13px; vertical-align: -2px; margin-right: 6px; color: var(--accent-light); }
-
-    /* ===== PROBLEM ===== */
-    .problem { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 44px 0 36px; }
-    .stack-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 22px; position: relative;
+    .sign h1 { font-size: clamp(40px, 5.2vw, 68px); line-height: 1.04; letter-spacing: -0.02em; margin-bottom: 22px; }
+    .sign p { font-size: clamp(19px, 1.9vw, 22px); line-height: 1.55; max-width: 52ch; color: #e8f4ee; margin-bottom: 30px; }
+    .sign .note { font-size: 16px; color: #cfe8db; margin: 16px 0 0; }
+    .hero-shot { margin: -150px 48px 0; position: relative; }
+    .hero-shot img { border-radius: 12px; border: 1px solid #0d141c; box-shadow: 0 30px 60px -20px rgba(10, 30, 20, .45); }
+    .hero-shot img { animation: rise .9s cubic-bezier(.2,.7,.2,1) .15s both; }
+    @keyframes rise { from { transform: translateY(36px); } to { transform: none; } }
+    .caption { font-size: 15.5px; color: var(--ink-2); margin-top: 12px; max-width: var(--measure); }
+    .hero-shot .caption { margin-left: 4px; }
+    @media (max-width: 760px) {
+      .sign { padding: 44px 28px 120px; border-radius: 18px; box-shadow: inset 0 0 0 7px var(--sign), inset 0 0 0 10px #fff; }
+      .hero-shot { margin: -90px 12px 0; }
     }
-    .stack-card i { width: 22px; height: 22px; color: var(--text-muted); margin-bottom: 12px; }
-    .stack-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .stack-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
-    .stack-card .price-tag {
-      position: absolute; top: 18px; right: 18px; font-size: 11px; font-weight: 600;
-      color: var(--orange); background: rgba(249,115,22,.1); border: 1px solid rgba(249,115,22,.25);
-      padding: 3px 9px; border-radius: 999px; letter-spacing: .5px;
+
+    /* One system statement */
+    .statement { padding: 88px 0 96px; }
+    .statement p { font-size: clamp(22px, 2.4vw, 28px); line-height: 1.5; max-width: 40ch; font-weight: 600; }
+    .statement p + p { margin-top: 22px; font-size: 20px; font-weight: 400; color: var(--ink-2); max-width: var(--measure); line-height: 1.65; }
+
+    /* New this week */
+    .when { font-size: 17px; color: var(--ink-2); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .when::before { content: ''; width: 12px; height: 12px; border-radius: 3px; background: var(--amber); transform: rotate(45deg); }
+    .news { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px 48px; margin-top: 48px; }
+    .news h3 { font-size: 21px; margin-bottom: 8px; }
+    .news p { font-size: 17.5px; color: var(--ink-2); }
+    @media (max-width: 980px) { .news { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .news { grid-template-columns: 1fr; gap: 32px; } }
+
+    /* Tour: one screen per row */
+    .tour-head { margin-bottom: 72px; }
+    .row { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: center; }
+    .row + .row, .strip + .row { margin-top: 112px; }
+    .row.flip .copy { order: 2; }
+    .copy p { color: var(--ink-2); max-width: 46ch; }
+    .copy ul { list-style: none; margin-top: 20px; }
+    .copy li { position: relative; padding-left: 26px; margin-top: 10px; font-size: 17.5px; max-width: 46ch; }
+    .copy li::before { content: ''; position: absolute; left: 0; top: .55em; width: 10px; height: 10px; border-radius: 50%; background: var(--sign); }
+    .shot img { border-radius: 10px; border: 1px solid #0d141c; }
+    .shot a { display: block; }
+    .row.wide { grid-template-columns: 4fr 8fr; }
+    .row.flip { grid-template-columns: 7fr 5fr; }
+    .row.wide.flip { grid-template-columns: 8fr 4fr; }
+    .strip { margin-top: 48px; }
+    .strip .caption { margin-top: 14px; }
+    @media (max-width: 900px) {
+      .row, .row.wide, .row.flip, .row.wide.flip { grid-template-columns: 1fr; gap: 28px; }
+      .row.flip .copy { order: 0; }
+      .row + .row, .strip + .row { margin-top: 80px; }
     }
-    .leak-line {
-      display: flex; align-items: center; gap: 12px; justify-content: center;
-      font-size: 17px; color: var(--text-primary); font-weight: 600; text-align: center; flex-wrap: wrap;
-    }
-    .leak-line i { width: 20px; height: 20px; color: var(--red); }
 
-    /* ===== ANSWER ===== */
-    .answer { text-align: center; }
-    .one-row { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 44px; }
-    .one-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-      padding: 28px 34px; min-width: 200px;
-    }
-    .one-card .big { font-size: 30px; font-weight: 900; letter-spacing: -1px; }
-    .one-card .small { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+    /* Comparison */
+    .compare-wrap { margin-top: 44px; overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; background: #fff; }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 17px; }
+    th, td { padding: 14px 18px; text-align: center; border-bottom: 1px solid var(--rule); }
+    thead th { font-size: 15px; font-weight: 800; color: var(--ink-2); background: #f7f9fa; vertical-align: bottom; }
+    td:first-child, th:first-child { text-align: left; font-weight: 600; }
+    tr:last-child td { border-bottom: 0; }
+    .yes { color: var(--sign); font-weight: 800; }
+    .no { color: #9aa4ae; }
+    .us { background: #e9f4ee; }
+    thead th.us { color: var(--sign-deep); background: #dcefe4; }
+    .after-table { margin-top: 28px; max-width: var(--measure); color: var(--ink-2); }
 
-    /* ===== PIPELINES ===== */
-    .pipeline-list { display: flex; flex-direction: column; gap: 22px; margin-top: 52px; }
-    .pipeline {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-      padding: 30px 32px; transition: border-color .2s, transform .2s;
-    }
-    .pipeline:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .pipeline-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
-    .pipeline-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent-light); font-weight: 500; }
-    .pipeline-head h3 { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
-    .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-    .stage {
-      font-size: 13.5px; font-weight: 600; padding: 7px 14px; border-radius: 999px;
-      background: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-primary);
-      white-space: nowrap;
-    }
-    .stage.hot { border-color: rgba(34,197,94,.45); color: #6ee7a0; background: rgba(34,197,94,.07); }
-    .flow i { width: 15px; height: 15px; color: var(--text-muted); flex: none; }
-    .payoff { font-size: 15.5px; color: var(--text-secondary); line-height: 1.6; }
-    .payoff strong { color: var(--text-primary); font-weight: 700; }
+    /* AI */
+    .ai { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px 56px; margin-top: 44px; }
+    .ai h3 { font-size: 21px; margin-bottom: 6px; }
+    .ai p { color: var(--ink-2); font-size: 17.5px; max-width: 48ch; }
+    @media (max-width: 760px) { .ai { grid-template-columns: 1fr; } }
 
-    /* ===== WHY US ===== */
-    .whyus { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .compare-wrap { overflow-x: auto; margin-top: 48px; border: 1px solid var(--border); border-radius: var(--radius-lg); }
-    table.compare { width: 100%; border-collapse: collapse; min-width: 720px; background: var(--bg-card); }
-    .compare th, .compare td { padding: 13px 18px; text-align: center; font-size: 14.5px; border-bottom: 1px solid var(--border); }
-    .compare th { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-secondary); font-weight: 700; background: var(--bg-secondary); }
-    .compare td:first-child, .compare th:first-child { text-align: left; font-weight: 600; }
-    .compare tr:last-child td { border-bottom: none; }
-    .compare .yes { color: var(--green); font-weight: 800; }
-    .compare .no { color: var(--text-muted); }
-    .compare .col-us { background: rgba(59,130,246,.07); }
-    .compare th.col-us { color: var(--accent-light); }
-    .five-products { margin-top: 34px; font-size: 18px; text-align: center; color: var(--text-secondary); }
-    .five-products strong { color: var(--text-primary); }
+    /* Provenance */
+    .facts { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 44px; border-top: 2px solid var(--ink); padding-top: 26px; }
+    .facts strong { display: block; font-size: 38px; line-height: 1.1; font-weight: 800; color: var(--sign-deep); }
+    .facts span { display: block; margin-top: 6px; font-size: 17px; color: var(--ink-2); }
+    @media (max-width: 760px) { .facts { grid-template-columns: repeat(2, 1fr); } }
 
-    /* ===== OUTCOMES ===== */
-    .outcome-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 52px; }
-    .outcome {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-      padding: 28px; transition: border-color .2s, transform .2s;
-    }
-    .outcome:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .outcome i { width: 26px; height: 26px; color: var(--accent-light); margin-bottom: 16px; }
-    .outcome h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.2px; }
-    .outcome p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; }
-
-    /* ===== AI TRUST ===== */
-    .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 48px; }
-    .trust-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
-    .trust-card i { width: 22px; height: 22px; color: var(--green); margin-bottom: 12px; }
-    .trust-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .trust-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
-
-    /* ===== OPERATORS ===== */
-    .operators { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
-    .op-stats { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 44px; }
-    .op-stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 26px 34px; min-width: 210px; }
-    .op-stat .big { font-size: 34px; font-weight: 900; letter-spacing: -1px; }
-    .op-stat .small { font-size: 14px; color: var(--text-secondary); margin-top: 6px; }
-
-    /* ===== FINAL CTA ===== */
-    .final { text-align: center; padding: 120px 0; }
-    .final h2 { font-size: clamp(30px, 5vw, 50px); font-weight: 900; letter-spacing: -1px; margin-bottom: 18px; }
-    .final p { font-size: 18px; color: var(--text-secondary); margin-bottom: 0; }
-
-    /* ===== INTAKE + SCHEDULER ===== */
-    .intake-wrap { max-width: 640px; margin: 40px auto 0; text-align: left; }
-    .intake-form { display: flex; flex-direction: column; gap: 12px; }
-    .intake-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    /* Book */
+    .book { background: var(--sign); color: #fff; }
+    .book h2 { color: #fff; }
+    .book .lede { color: #e8f4ee; }
+    .intake { max-width: 680px; margin-top: 36px; }
+    .intake-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .intake-form label { display: flex; flex-direction: column; gap: 6px; font-size: 16px; font-weight: 600; color: #e8f4ee; }
     .intake-input {
-      flex: 1; min-width: 180px; background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 10px; padding: 13px 16px; color: var(--text-primary); font-size: 15px;
-      font-family: inherit; transition: border-color .2s;
+      font: inherit; font-size: 18px; color: var(--ink); background: #fff; border: 2px solid #fff;
+      border-radius: 10px; padding: 13px 14px; width: 100%;
     }
-    .intake-input::placeholder { color: var(--text-muted); }
-    .intake-input:focus { outline: none; border-color: var(--accent); }
-    .intake-input option { background: var(--bg-card); color: var(--text-primary); }
-    .intake-submit {
-      white-space: nowrap; border: none; cursor: pointer; font-family: inherit;
-      font-size: 15px; display: inline-flex; align-items: center; gap: 8px;
-    }
-    .intake-submit i { width: 16px; height: 16px; }
-    .cal-embed-card {
-      margin-top: 20px; background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: 8px; overflow: hidden;
-    }
+    .intake-input:focus { outline: 3px solid var(--amber); outline-offset: 1px; }
+    .intake-form .btn { align-self: end; }
+    .book :focus-visible { outline-color: var(--amber); }
+    @media (max-width: 640px) { .intake-form { grid-template-columns: 1fr; } }
+    .cal-card { margin-top: 24px; background: #fff; border-radius: 14px; padding: 8px; color: var(--ink); }
     #gofleetai-cal-embed { width: 100%; min-height: 560px; }
-    .cal-fallback { text-align: center; padding: 10px; font-size: 13px; color: var(--text-muted); }
-    .cal-fallback a { color: var(--accent-light); text-decoration: none; }
-    .cal-fallback a:hover { text-decoration: underline; }
+    .cal-fallback { text-align: center; padding: 10px; font-size: 15px; color: var(--ink-2); }
 
-    footer { border-top: 1px solid var(--border); padding: 28px 0; text-align: center; font-size: 13px; color: var(--text-muted); }
-    footer a { color: var(--text-secondary); text-decoration: none; }
-    footer a:hover { color: var(--accent-light); }
+    footer { padding: 32px 0; font-size: 15.5px; color: var(--ink-2); border-top: 1px solid var(--rule); }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+    footer nav { display: flex; gap: 20px; }
 
-    /* ===== REVEAL ANIMATION ===== */
-    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (max-width: 640px) {
+      body { font-size: 18px; }
+      section { padding: 76px 0; }
+    }
     @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
       html { scroll-behavior: auto; }
+      .hero-shot img { animation: none; }
     }
   </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <div class="topbar-inner">
+  <header class="topbar">
+    <div class="wrap">
       <a class="brand" href="https://gofleetai.com">
-        <img src="assets/gofleetai-icon-512.png" alt="" width="30" height="30" style="border-radius: 8px;">
+        <img src="assets/gofleetai-icon-512.png" alt="" width="32" height="32">
         GoFleetAI
       </a>
-      <div class="topbar-links">
+      <nav class="nav" aria-label="Main">
+        <a class="plain" href="#tour">Tour</a>
+        <a class="plain" href="#new">New this week</a>
         <a class="plain" href="pricing.html">Pricing</a>
-        <a class="cta-mini" href="#intake">25-minute teardown</a>
+        <a class="btn btn-go" href="#book">Book a teardown</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="wrap">
+        <div class="sign">
+          <h1>Your whole trucking business.<br>One system.</h1>
+          <p>Dispatch, the driver app, hiring, pay, invoicing, compliance, maintenance, fuel, IFTA and yard rent. One place, one set of numbers, one bill.</p>
+          <a class="btn btn-on-sign" href="#book">Book a 25-minute teardown</a>
+          <p class="note">Bring one rate confirmation. We run it through GoFleetAI with you, start to finish.</p>
+        </div>
+        <figure class="hero-shot">
+          <a href="assets/screens/dispatch-board-2000.webp">
+            <img src="assets/screens/dispatch-board-2000.webp"
+                 srcset="assets/screens/dispatch-board-1000.webp 1000w, assets/screens/dispatch-board-2000.webp 2000w"
+                 sizes="(max-width: 1180px) 100vw, 1084px" width="2000" height="802"
+                 alt="The GoFleetAI dispatch board: a week of loads per driver, with a truck out of service, a scheduled service and a driver's pending home time on the same calendar.">
+          </a>
+          <figcaption class="caption">The dispatch board. Loads, shop time and home time for every driver on one calendar.</figcaption>
+        </figure>
       </div>
     </div>
-  </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container">
-      <h1>Your whole trucking business.<br><span class="gradient-text">One system.</span></h1>
-      <p class="sub">Dispatch, drivers, hiring and onboarding, settlements, invoicing, compliance, maintenance, IFTA, fuel, tolls, even yard rent — <strong>all of it in one place, one set of numbers, one bill.</strong> The alternative isn't another product. It's five.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#intake">Bring one rate con · 25 minutes</a>
+    <!-- ONE SYSTEM -->
+    <section class="statement">
+      <div class="wrap">
+        <p>The rate con that arrives by email becomes the load. The load becomes the driver's pay and the customer's invoice. Same numbers, start to finish.</p>
+        <p>Most fleets stitch together a dispatch tool, an ELD portal, payroll spreadsheets and accounting software, and every hand-off is where money leaks. GoFleetAI runs all of it, for your trucking and your brokerage authority, from one screen.</p>
       </div>
-      <div class="domain-belt">
-        <span class="domain-chip"><i data-lucide="route"></i>Dispatch</span>
-        <span class="domain-chip"><i data-lucide="smartphone"></i>Driver app</span>
-        <span class="domain-chip"><i data-lucide="user-plus"></i>Driver hiring &amp; onboarding</span>
-        <span class="domain-chip"><i data-lucide="wallet"></i>Settlements</span>
-        <span class="domain-chip"><i data-lucide="file-text"></i>Invoicing</span>
-        <span class="domain-chip"><i data-lucide="shield-check"></i>Compliance</span>
-        <span class="domain-chip"><i data-lucide="wrench"></i>Maintenance</span>
-        <span class="domain-chip"><i data-lucide="map"></i>Live GPS</span>
-        <span class="domain-chip"><i data-lucide="fuel"></i>Fuel &amp; tolls</span>
-        <span class="domain-chip"><i data-lucide="calculator"></i>IFTA</span>
-        <span class="domain-chip"><i data-lucide="warehouse"></i>Yard rent</span>
-        <span class="domain-chip"><i data-lucide="sparkles"></i>AI paperwork</span>
+    </section>
+
+    <!-- NEW THIS WEEK -->
+    <section class="band" id="new">
+      <div class="wrap">
+        <p class="when">Shipped October 16 to 18, 2026</p>
+        <h2>New this week</h2>
+        <p class="lede">GoFleetAI ships every week. Here is what reached customers in the last three days.</p>
+        <ul class="news">
+          <li>
+            <h3>Alerts that say who did what</h3>
+            <p>Every notification reads like a sentence: who acted, on which load or ticket, and at which stop. "Dana Whitfield is 15 minutes late to the delivery on load 1042."</p>
+          </li>
+          <li>
+            <h3>Trailer trackers confirm stops</h3>
+            <p>A trailer with its own tracker now confirms arrivals and departures, and a drop-and-hook completes itself when the loaded trailer leaves the pickup.</p>
+          </li>
+          <li>
+            <h3>Any date range, one box</h3>
+            <p>The dispatch board has a Custom view for up to 14 days. Every date filter in the app is now one calendar, with this and last pay cycle a click away.</p>
+          </li>
+          <li>
+            <h3>Book and dispatch from Quick edit</h3>
+            <p>Save, book and dispatch a load without opening the full load page. Search the navigator for any page or driver, and pin pages to your home screen.</p>
+          </li>
+          <li>
+            <h3>Cost per mile actually driven</h3>
+            <p>Each truck's daily miles come from its ELD odometer, so truck cost reports show cost per mile driven, including miles not on a load. Fixed costs can come from QuickBooks every night.</p>
+          </li>
+          <li>
+            <h3>Insurance, policy by policy</h3>
+            <p>Keep auto liability and cargo policies side by side, one tab each, and project a policy rated by the mile from the miles your trucks run.</p>
+          </li>
+          <li>
+            <h3>A shop clock for mechanics</h3>
+            <p>Mechanics start and end shifts at the shop from their phone, and hourly or daily pay comes from the clock. Staff now earn paid time off and medical benefits each pay period.</p>
+          </li>
+          <li>
+            <h3>A second person for big changes</h3>
+            <p>Several removals in a few minutes wait for an administrator. AI assistants connected to your account can add people and send invites, and those changes wait for approval too.</p>
+          </li>
+          <li>
+            <h3>Driver stages and groups</h3>
+            <p>Mark drivers Onboarding, In training, Active, Offboarding or Terminated, group them by fleet, and message every company driver or owner-operator at once.</p>
+          </li>
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PROBLEM -->
-  <section class="problem">
-    <div class="container">
-      <div class="section-label reveal">The problem</div>
-      <h2 class="section-title reveal">How many systems run your fleet today?</h2>
-      <p class="section-desc reveal">The typical operation is a patchwork — each piece with its own bill, its own login, and its own version of the truth.</p>
-      <div class="stack-grid">
-        <div class="stack-card reveal"><span class="price-tag">SUBSCRIPTION</span><i data-lucide="clipboard-list"></i><h3>A dispatch tool</h3><p>That stops at the load board and never meets your money.</p></div>
-        <div class="stack-card reveal"><span class="price-tag">SUBSCRIPTION</span><i data-lucide="satellite"></i><h3>A GPS / ELD portal</h3><p>That shows the truck but doesn't know what a load is.</p></div>
-        <div class="stack-card reveal"><span class="price-tag">EVERY FRIDAY</span><i data-lucide="table"></i><h3>Payroll spreadsheets</h3><p>Where one silent formula error compounds week after week.</p></div>
-        <div class="stack-card reveal"><span class="price-tag">SUBSCRIPTION</span><i data-lucide="receipt"></i><h3>Accounting software</h3><p>That can't tell detention from line haul — so someone retypes.</p></div>
-        <div class="stack-card reveal"><span class="price-tag">PAPER</span><i data-lucide="file-warning"></i><h3>DVIRs and doc binders</h3><p>Where expirations hide until the truck legally can't roll.</p></div>
-        <div class="stack-card reveal"><span class="price-tag">TEXT MESSAGES</span><i data-lucide="warehouse"></i><h3>Parking rent by memory</h3><p>Who paid, whose card failed, who's three months behind.</p></div>
-      </div>
-      <div class="leak-line reveal"><i data-lucide="trending-down"></i>Every hand-off between those tools is where money leaks.</div>
-    </div>
-  </section>
-
-  <!-- ANSWER -->
-  <section class="answer">
-    <div class="container">
-      <div class="section-label reveal">The answer</div>
-      <h2 class="section-title reveal">A true all-in-one. <span class="gradient-text">Not a bundle — one system.</span></h2>
-      <p class="section-desc reveal" style="margin: 0 auto;">The rate con that arrives by email becomes the load. The load becomes the driver's pay and the customer's invoice. The truck's GPS becomes arrival times, detention clocks, and delivery proof. Same numbers, start to finish. And it runs <strong style="color: var(--text-primary);">trucking and brokerage authorities from the same interface</strong> — cover a load with your own truck or a partner carrier on the same screen, each company's paperwork under its own branding.</p>
-      <div class="one-row">
-        <div class="one-card reveal"><div class="big gradient-text">1</div><div class="small">place for everything</div></div>
-        <div class="one-card reveal"><div class="big gradient-text">1</div><div class="small">set of numbers</div></div>
-        <div class="one-card reveal"><div class="big gradient-text">1</div><div class="small">bill to pay</div></div>
-        <div class="one-card reveal"><div class="big gradient-text">0</div><div class="small">retyping</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PIPELINES -->
-  <section>
-    <div class="container">
-      <div class="section-label reveal">How it runs your business</div>
-      <h2 class="section-title reveal">Five pipelines. End to end. No hand-offs.</h2>
-      <p class="section-desc reveal">Your operation is a set of pipelines. GoFleetAI runs every one of them from the first event to the money.</p>
-
-      <div class="pipeline-list">
-        <div class="pipeline reveal">
-          <div class="pipeline-head"><span class="pipeline-num">01</span><h3>Freight to cash</h3></div>
-          <div class="flow">
-            <span class="stage">Tender lands in your inbox</span><i data-lucide="chevron-right"></i>
-            <span class="stage">AI reads it into a load</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Dispatch</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Live tracking</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Delivered, POD in hand</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Invoiced same day</span><i data-lucide="chevron-right"></i>
-            <span class="stage hot">Paid</span>
-          </div>
-          <p class="payoff"><strong>Bill the day you deliver.</strong> The app collects the paperwork at the stop, in the moment — and nobody retypes a rate con, so the number on the invoice is the number on the rate con.</p>
+    <!-- TOUR -->
+    <section id="tour">
+      <div class="wrap">
+        <div class="tour-head">
+          <h2>See it working</h2>
+          <p class="lede">Real screens from the app, with sample data. Select any screen to open it full size.</p>
         </div>
 
-        <div class="pipeline reveal">
-          <div class="pipeline-head"><span class="pipeline-num">02</span><h3>Applicant to settled driver</h3></div>
-          <div class="flow">
-            <span class="stage">Driver applies from their phone</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Lands on your hiring board</span><i data-lucide="chevron-right"></i>
-            <span class="stage">One click to hire</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Application files itself</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Dispatch</span><i data-lucide="chevron-right"></i>
-            <span class="stage hot">Settled — paid right, on time</span>
+        <div class="row">
+          <div class="copy">
+            <h3>Tenders turn into loads</h3>
+            <p>Rate confirmations and load tenders that land in your dispatch inbox are read by AI and turned into draft loads. A person reviews each one before it is booked.</p>
+            <ul>
+              <li>Each offer shows whether a truck can cover it and how far out it is.</li>
+              <li>A revised tender is linked to the load it changes, never booked twice.</li>
+              <li>Nobody retypes a rate con, so the invoice matches it.</li>
+            </ul>
           </div>
-          <p class="payoff"><strong>Recruiting stops living in your text messages.</strong> Post your own apply link anywhere, and nothing gets typed twice between "I'm interested" and their first paycheck — including the employment application every DOT audit asks for.</p>
+          <figure class="shot">
+            <a href="assets/screens/load-inbox-2000.webp">
+              <img src="assets/screens/load-inbox-1000.webp" srcset="assets/screens/load-inbox-1000.webp 1000w, assets/screens/load-inbox-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 640px" width="2000" height="970" loading="lazy"
+                   alt="The Load Inbox, listing truck requests parsed from email with pickup, delivery, equipment, rate, and whether a truck can cover each one.">
+            </a>
+          </figure>
         </div>
 
-        <div class="pipeline reveal">
-          <div class="pipeline-head"><span class="pipeline-num">03</span><h3>Document to audit-ready</h3></div>
-          <div class="flow">
-            <span class="stage">Every credential tracked</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Reminders before expiry</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Inspections &amp; repairs certified</span><i data-lucide="chevron-right"></i>
-            <span class="stage hot">Audit-ready, always</span>
+        <div class="row wide flip">
+          <div class="copy">
+            <h3>Every load on one screen</h3>
+            <p>Stops, charges, expenses, driver pay and projected profit sit on one page. Change a charge and the pay and margin move with it.</p>
+            <ul>
+              <li>Revenue, driver pay, fuel and margin before the truck rolls.</li>
+              <li>Relay loads split into segments, each with its own driver and pay.</li>
+              <li>Warnings when something is off, like a trailer that isn't with its truck.</li>
+            </ul>
           </div>
-          <p class="payoff"><strong>The DOT audit becomes a filing cabinet you already have.</strong> Nothing expires unannounced — not a med card, not a COI, not a registration.</p>
+          <figure class="shot">
+            <a href="assets/screens/load-page-2000.webp">
+              <img src="assets/screens/load-page-1000.webp" srcset="assets/screens/load-page-1000.webp 1000w, assets/screens/load-page-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 740px" width="2000" height="1007" loading="lazy"
+                   alt="A load page showing two stops, the commodity, customer charges for line haul, fuel surcharge and detention, and a financials panel with revenue, driver pay and projected profit.">
+            </a>
+          </figure>
         </div>
 
-        <div class="pipeline reveal">
-          <div class="pipeline-head"><span class="pipeline-num">04</span><h3>Defect to back earning</h3></div>
-          <div class="flow">
-            <span class="stage">Driver writes it up (DVIR)</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Shop sees it instantly</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Repair &amp; certify</span><i data-lucide="chevron-right"></i>
-            <span class="stage hot">Back on the road</span>
+        <div class="row wide">
+          <div class="copy">
+            <h3>The driver's phone runs the stop</h3>
+            <p>Drivers see one next step at a time: accept the load, drive to the pickup, arrive, add the POD. In English or Spanish.</p>
+            <ul>
+              <li>Arrivals are confirmed by the truck's GPS, the trailer's tracker or the phone.</li>
+              <li>The POD is captured at the dock, so you can bill the same day.</li>
+              <li>Drivers message dispatch and report problems from the same app.</li>
+            </ul>
           </div>
-          <p class="payoff"><strong>Trucks spend their time earning, not waiting.</strong> Dispatch and the shop share one calendar, so they stop double-booking the same truck.</p>
+          <figure class="shot">
+            <a href="assets/screens/driver-app-2000.webp">
+              <img src="assets/screens/driver-app-1000.webp" srcset="assets/screens/driver-app-1000.webp 1000w, assets/screens/driver-app-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 740px" width="2000" height="1375" loading="lazy"
+                   alt="Three driver app screens: sign in with email and PIN, a task list with a load to accept and a pickup to drive to, and a delivery stop with Add POD and Delivered buttons.">
+            </a>
+          </figure>
         </div>
 
-        <div class="pipeline reveal">
-          <div class="pipeline-head"><span class="pipeline-num">05</span><h3>Empty space to rent collected</h3></div>
-          <div class="flow">
-            <span class="stage">Spaces &amp; tenants</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Card on file</span><i data-lucide="chevron-right"></i>
-            <span class="stage">Rent bills itself monthly</span><i data-lucide="chevron-right"></i>
-            <span class="stage hot">Collected</span>
+        <div class="row flip">
+          <div class="copy">
+            <h3>Pay set up the way each driver is paid</h3>
+            <p>Per mile, percentage, hourly, flat or salary, with deductions, reserve accounts and benefits, set per driver.</p>
+            <ul>
+              <li>Settlements are built from the same loads you invoiced.</li>
+              <li>A statement can be corrected and reissued. Both versions stay on file.</li>
+              <li>A spreadsheet error once over-deducted one driver about $11,400 a year. This design ended it.</li>
+            </ul>
           </div>
-          <p class="payoff"><strong>Yard income with no chasing.</strong> A fleet with spare yard space turns it into automated monthly revenue — in the same system that runs the trucks.</p>
+          <figure class="shot">
+            <a href="assets/screens/driver-pay-2000.webp">
+              <img src="assets/screens/driver-pay-1000.webp" srcset="assets/screens/driver-pay-1000.webp 1000w, assets/screens/driver-pay-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 640px" width="2000" height="1015" loading="lazy"
+                   alt="A driver's pay setup with earnings grouped by revenue share, per mile, per hour and flat per load.">
+            </a>
+          </figure>
+        </div>
+
+        <figure class="shot strip">
+          <a href="assets/screens/settlement-2000.webp">
+            <img src="assets/screens/settlement-1000.webp" srcset="assets/screens/settlement-1000.webp 1000w, assets/screens/settlement-2000.webp 2000w" sizes="(max-width: 1180px) 100vw, 1132px" width="2000" height="356" loading="lazy"
+                 alt="A closed pay period's driver statements with gross, deductions and net, one reopened for correction.">
+          </a>
+          <figcaption class="caption">Each week's statements: gross, deductions and net per driver. A correction is issued as a new statement, so what a driver was already sent stays on file.</figcaption>
+        </figure>
+
+        <div class="row wide flip">
+          <div class="copy">
+            <h3>Bill the day you deliver</h3>
+            <p>Delivered loads move to review, then to invoice. Missing paperwork is called out before anything is sent.</p>
+            <ul>
+              <li>Generate and email invoices in one click, or send them to your factoring company.</li>
+              <li>See what is pending, sent, sold to factor and paid at a glance.</li>
+              <li>Detention runs from the appointment time and lands on the load as a charge.</li>
+            </ul>
+          </div>
+          <figure class="shot">
+            <a href="assets/screens/invoicing-2000.webp">
+              <img src="assets/screens/invoicing-1000.webp" srcset="assets/screens/invoicing-1000.webp 1000w, assets/screens/invoicing-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 740px" width="2000" height="1158" loading="lazy"
+                   alt="The invoicing screen with totals for pending review, ready to invoice, awaiting payment, sold to factor and paid, and a list of loads ready to invoice.">
+            </a>
+          </figure>
+        </div>
+
+        <div class="row wide">
+          <div class="copy">
+            <h3>The shop sees problems as they happen</h3>
+            <p>A defect reported from the driver app lands on the shop's board. The shop and dispatch share one calendar, so a truck in the shop isn't dispatched.</p>
+            <ul>
+              <li>Engine fault codes from the ELD show up as tickets.</li>
+              <li>Service schedules run by date or by miles, for trucks and trailers.</li>
+              <li>Mechanics clock their shifts at the shop and get paid from the clock.</li>
+            </ul>
+          </div>
+          <figure class="shot">
+            <a href="assets/screens/issues-board-2000.webp">
+              <img src="assets/screens/issues-board-1000.webp" srcset="assets/screens/issues-board-1000.webp 1000w, assets/screens/issues-board-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 740px" width="2000" height="963" loading="lazy"
+                   alt="The issues board with tickets for trucks, trailers and the yard in New, Assigned, In progress, On hold and Done columns.">
+            </a>
+          </figure>
+        </div>
+
+        <div class="row flip">
+          <div class="copy">
+            <h3>Yard rent that bills itself</h3>
+            <p>Spare yard space becomes monthly income. Tenants keep a card on file and rent is charged each month, in the same system that runs the trucks.</p>
+            <ul>
+              <li>See who has paid, who hasn't, and whose card is expiring.</li>
+              <li>Spots, deposits and balances in one list.</li>
+            </ul>
+          </div>
+          <figure class="shot">
+            <a href="assets/screens/yard-2000.webp">
+              <img src="assets/screens/yard-1000.webp" srcset="assets/screens/yard-1000.webp 1000w, assets/screens/yard-2000.webp 1976w" sizes="(max-width: 900px) 100vw, 640px" width="1976" height="1042" loading="lazy"
+                   alt="Yard parking operations with occupied spots, rent billed, collected and outstanding, and a tenant list showing paid and unpaid balances.">
+            </a>
+          </figure>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- WHY US -->
-  <section class="whyus">
-    <div class="container">
-      <div class="section-label reveal">Why GoFleetAI</div>
-      <h2 class="section-title reveal">The alternative isn't another product.<br>It's five products.</h2>
-      <p class="section-desc reveal">Most software in this industry does one slice and leaves you to stitch the rest together. Stitching is where the leaks live.</p>
-
-      <div class="compare-wrap reveal">
-        <table class="compare">
-          <thead>
-            <tr>
-              <th>What you need</th>
-              <th>Dispatch tool</th>
-              <th>ELD portal</th>
-              <th>Payroll service</th>
-              <th>Accounting app</th>
-              <th class="col-us">GoFleetAI</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Loads &amp; dispatch board</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Live GPS &amp; geofencing</td><td class="no">—</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Driver app with POD capture</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Public apply link &amp; hiring board</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Driver onboarding &amp; qualification files</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Trucking + brokerage authorities, one desk</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Settlements, every pay model</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Invoicing, AR &amp; factoring send</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Compliance, DQF &amp; accident desk</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Maintenance &amp; mechanic workspace</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>IFTA, fuel &amp; tolls — one workspace each</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>Yard parking rent, auto-billed</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-            <tr><td>AI that reads your paperwork</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes col-us">✓</td></tr>
-          </tbody>
-        </table>
+    <!-- COMPARISON -->
+    <section class="band">
+      <div class="wrap">
+        <h2>Five tools, or one</h2>
+        <p class="lede">Most software in trucking does one slice and leaves you to stitch the rest together.</p>
+        <div class="compare-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">What you need</th>
+                <th scope="col">Dispatch tool</th>
+                <th scope="col">ELD portal</th>
+                <th scope="col">Payroll service</th>
+                <th scope="col">Accounting app</th>
+                <th scope="col" class="us">GoFleetAI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Loads and dispatch board</th><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Live GPS and geofencing</th><td class="no">—</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Driver app with POD capture</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Apply link and hiring board</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Driver onboarding and qualification files</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Trucking and brokerage authorities, one desk</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Settlements for every pay model</th><td class="no">—</td><td class="no">—</td><td class="yes">✓</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Invoicing, receivables and factoring</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Compliance, qualification files and accidents</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Maintenance and a mechanic app</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">IFTA, fuel and tolls</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Yard parking rent, billed automatically</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">AI that reads your paperwork</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="after-table">When dispatch, pay, invoicing and reports read the same load, the quote, the paycheck and the invoice always agree. A stack of separate tools can't promise that.</p>
       </div>
-      <p class="five-products reveal">When dispatch, pay, invoicing, and reports read the same load, <strong>the quote, the paycheck, and the invoice always agree.</strong> No stack of separate tools can promise that.</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- OUTCOMES -->
-  <section>
-    <div class="container">
-      <div class="section-label reveal">What changes for you</div>
-      <h2 class="section-title reveal">The outcomes owners feel first</h2>
-      <div class="outcome-grid">
-        <div class="outcome reveal"><i data-lucide="zap"></i><h3>Bill the day you deliver</h3><p>The POD arrives from the dock through the driver app — not from the cab floor a week later. Cash flow follows.</p></div>
-        <div class="outcome reveal"><i data-lucide="hourglass"></i><h3>Detention bills itself</h3><p>The clock runs from the appointment, dwell is tracked at every stop, and the charge lands on the load. It stops being a favor you forget to invoice.</p></div>
-        <div class="outcome reveal"><i data-lucide="badge-check"></i><h3>Pay right the first time</h3><p>One spreadsheet-era error was silently over-deducting a single driver about $11,400 a year. This design is what ended it.</p></div>
-        <div class="outcome reveal"><i data-lucide="bar-chart-3"></i><h3>Know your real margin</h3><p>By load, lane, customer, truck, and driver-week — with fuel, tolls, and overhead in the math, not guessed.</p></div>
-        <div class="outcome reveal"><i data-lucide="inbox"></i><h3>Retyping ends</h3><p>Rate cons, tenders, licenses, and insurance pages are read by AI into checked, reviewable entries. Hours a week come back.</p></div>
-        <div class="outcome reveal"><i data-lucide="clipboard-check"></i><h3>Hiring runs on a link, not a text thread</h3><p>Post your own apply link on Indeed, Facebook, or a flyer. Drivers apply from their phone, land on a hiring board, and the employment application every audit asks for is on file the day you hire them.</p></div>
-        <div class="outcome reveal"><i data-lucide="phone-off"></i><h3>The chase calls stop</h3><p>Technology-enabled process compliance: the app manages the order's flow through the driver's phone, so the document is collected at the stop — not hunted down by phone five days later, right before invoicing.</p></div>
-        <div class="outcome reveal"><i data-lucide="heart-handshake"></i><h3>Pay built around the driver</h3><p>Salary, hourly, per-mile, percentage — full flexibility of pay models and rules. Offering drivers a steady paycheck is a hiring edge most software can't run at all.</p></div>
-        <div class="outcome reveal"><i data-lucide="moon"></i><h3>The owner sleeps</h3><p>Expirations watched, accident night has a procedure, and the whiteboard retires. The business stops living in one person's head.</p></div>
+    <!-- AI -->
+    <section>
+      <div class="wrap">
+        <h2>AI where it pays. A person where it matters.</h2>
+        <p class="lede">The AI reads paperwork and types it in. People decide what gets booked and what gets paid. Your data stays yours.</p>
+        <ul class="ai">
+          <li><h3>No memory</h3><p>Every document is one sealed request: read, answered, over. Nothing carries between requests.</p></li>
+          <li><h3>Never trains on your data</h3><p>Business API terms keep your freight, rates and drivers out of anyone's AI training.</p></li>
+          <li><h3>Sensitive documents are not stored</h3><p>Driver licenses, medical cards and carrier packets are sent with an explicit no-storage requirement.</p></li>
+          <li><h3>Your account learns, not the AI</h3><p>Corrections live in your own account and improve your future reads. They never leave it.</p></li>
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- AI TRUST -->
-  <section class="whyus">
-    <div class="container">
-      <div class="section-label reveal">AI you can put in front of customers</div>
-      <h2 class="section-title reveal">AI where it pays. A human where it matters.</h2>
-      <p class="section-desc reveal">The AI reads paperwork and types it in. People decide what gets booked and what gets paid. And your data stays yours:</p>
-      <div class="trust-grid">
-        <div class="trust-card reveal"><i data-lucide="eye-off"></i><h3>No memory</h3><p>Every document is a single, sealed request — read, answered, over. Nothing carries between requests.</p></div>
-        <div class="trust-card reveal"><i data-lucide="shield-off"></i><h3>Never trains on your data</h3><p>Business API terms keep your freight, rates, and drivers out of anyone's AI training.</p></div>
-        <div class="trust-card reveal"><i data-lucide="lock"></i><h3>Sensitive docs, storage denied</h3><p>Driver licenses, med cards, and carrier packets are sent with an explicit no-storage requirement.</p></div>
-        <div class="trust-card reveal"><i data-lucide="user-check"></i><h3>Your account learns, not the AI</h3><p>Corrections live in your own account and sharpen your future parses. They never leave.</p></div>
+    <!-- PROVENANCE -->
+    <section class="band">
+      <div class="wrap">
+        <h2>Built inside a working fleet</h2>
+        <p class="lede">GoFleetAI was designed at a dispatch desk, not in a software lab. It runs a real trucking company every day, and it gets better every week.</p>
+        <ul class="facts">
+          <li><strong>1,400+</strong><span>product improvements in four months</span></li>
+          <li><strong>18</strong><span>areas of the operation covered</span></li>
+          <li><strong>2</strong><span>languages in the driver and mechanic apps</span></li>
+          <li><strong>30 to 300</strong><span>trucks without changing systems</span></li>
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- OPERATORS -->
-  <section class="operators">
-    <div class="container">
-      <div class="section-label reveal">Provenance</div>
-      <h2 class="section-title reveal">Built inside a working fleet</h2>
-      <p class="section-desc reveal" style="margin: 0 auto;">GoFleetAI was designed at a dispatch desk, not in a software lab. It runs a real trucking company every day — and it gets better every week.</p>
-      <div class="op-stats">
-        <div class="op-stat reveal"><div class="big gradient-text">1,400+</div><div class="small">product improvements in 4 months</div></div>
-        <div class="op-stat reveal"><div class="big gradient-text">18</div><div class="small">areas of the operation covered</div></div>
-        <div class="op-stat reveal"><div class="big gradient-text">2</div><div class="small">languages in the driver app</div></div>
-        <div class="op-stat reveal"><div class="big gradient-text">30→300</div><div class="small">trucks without changing systems</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="final" id="intake">
-    <div class="container">
-      <h2>Five logins.<br><span class="gradient-text">One version of the truth.</span></h2>
-      <p>Send one rate confirmation ahead. Twenty-five minutes. No module tour.</p>
-
-      <div class="intake-wrap" id="intake-wrap">
-        <form class="intake-form" id="intake-form">
-          <div class="intake-row">
-            <input class="intake-input" id="intake-name" type="text" placeholder="Your name" required autocomplete="name">
-            <input class="intake-input" id="intake-email" type="email" placeholder="Work email" required autocomplete="email">
+    <!-- BOOK -->
+    <section class="book" id="book">
+      <div class="wrap">
+        <h2>Book a 25-minute teardown</h2>
+        <p class="lede">Send one rate confirmation ahead. We run it through GoFleetAI with you, from tender to invoice to driver pay. No module tour.</p>
+        <div class="intake" id="intake-wrap">
+          <form class="intake-form" id="intake-form">
+            <label>Your name<input class="intake-input" id="intake-name" type="text" required autocomplete="name"></label>
+            <label>Work email<input class="intake-input" id="intake-email" type="email" required autocomplete="email"></label>
+            <label>Fleet size
+              <select class="intake-input" id="intake-fleet-size" required>
+                <option value="" disabled selected>Choose one</option>
+                <option value="1-10">1–10 trucks</option>
+                <option value="11-50">11–50 trucks</option>
+                <option value="51-150">51–150 trucks</option>
+                <option value="150+">150+ trucks</option>
+              </select>
+            </label>
+            <button type="submit" class="btn btn-on-sign">Choose a time</button>
+          </form>
+          <div class="cal-card" id="cal-embed-card" hidden>
+            <div id="gofleetai-cal-embed"></div>
+            <div class="cal-fallback">Calendar not loading? <a href="mailto:TellMeMore@TekOmni.com?subject=GoFleetAI%20demo">Email us directly</a>.</div>
           </div>
-          <div class="intake-row">
-            <select class="intake-input" id="intake-fleet-size" required>
-              <option value="" disabled selected>Fleet size</option>
-              <option value="1-10">1–10 trucks</option>
-              <option value="11-50">11–50 trucks</option>
-              <option value="51-150">51–150 trucks</option>
-              <option value="150+">150+ trucks</option>
-            </select>
-            <button type="submit" class="btn btn-primary intake-submit">Bring one rate con · 25 minutes <i data-lucide="arrow-right"></i></button>
-          </div>
-        </form>
-
-        <div class="cal-embed-card" id="cal-embed-card" hidden>
-          <div id="gofleetai-cal-embed"></div>
-          <div class="cal-fallback">Calendar not loading? <a href="mailto:TellMeMore@TekOmni.com?subject=GoFleetAI%20demo">email us directly →</a></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
-    <div class="container">© 2026 TekOmni LLC · GoFleetAI is not affiliated with GoFleet telematics. · <a href="pricing.html">Pricing</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="security.html">Security</a></div>
+    <div class="wrap">
+      <span>© 2026 TekOmni LLC. GoFleetAI is not affiliated with GoFleet telematics.</span>
+      <nav aria-label="Footer">
+        <a href="pricing.html">Pricing</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="security.html">Security</a>
+      </nav>
+    </div>
   </footer>
-
-  <script>
-    lucide.createIcons();
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-  </script>
 
   <script>
     (function () {
@@ -586,10 +597,10 @@
           calLink: 'william-pimentel-zbzwpx/gofleetai-demo-meeting?' + query.toString(),
         });
         Cal.ns['gofleetai']('ui', {
-          theme: 'dark',
+          theme: 'light',
           cssVarsPerTheme: {
-            light: { 'cal-brand': '#3b82f6' },
-            dark: { 'cal-brand': '#3b82f6' }
+            light: { 'cal-brand': '#1d5fd6' },
+            dark: { 'cal-brand': '#1d5fd6' }
           },
           hideEventTypeDetails: false,
           layout: 'month_view'

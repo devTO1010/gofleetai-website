@@ -16,12 +16,11 @@
   <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-256.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-180.png">
-  <meta name="theme-color" content="#0a0a0f">
+  <meta name="theme-color" content="#00663f">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -210,6 +209,34 @@
       .nav-links { display: none; }
       .hamburger { display: block; }
     }
+
+    /* Light theme, matching the homepage (2026-10-18). */
+    :root {
+      --bg-primary: #ffffff; --bg-secondary: #eef3f1; --bg-card: #ffffff; --bg-card-hover: #f7f9fa;
+      --border: #d3dbe2; --text-primary: #17202b; --text-secondary: #45505e; --text-muted: #5d6874;
+      --accent: #1d5fd6; --accent-light: #1d5fd6; --accent-glow: rgba(29, 95, 214, 0.08);
+      --green: #00663f; --green-glow: rgba(0, 102, 63, 0.1);
+      --gradient-text: linear-gradient(135deg, #00663f 0%, #00663f 100%);
+    }
+    body { font-family: 'Overpass', 'Segoe UI', system-ui, sans-serif; font-size: 18px; }
+    nav { background: rgba(255, 255, 255, 0.94); }
+    .nav-logo .logo-ai { color: #1d5fd6; }
+    .section-label { letter-spacing: 0; text-transform: none; font-size: 17px; color: var(--green); }
+    .btn-primary:hover { background: #174ead; box-shadow: none; transform: none; }
+    :focus-visible { outline: 3px solid #1d5fd6; outline-offset: 3px; border-radius: 4px; }
+    .pricing-desc, .pricing-features li { font-size: 16.5px; }
+    .pricing-card:hover { transform: none; }
+    .pricing-card.featured { box-shadow: 0 0 0 1px var(--accent); }
+    .pricing-features li::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--green); flex: none; }
+    .billing-toggle span { font-size: 16px; }
+    .toggle-track { border: none; }
+    details.faq-item > summary { list-style: none; }
+    details.faq-item > summary::-webkit-details-marker { display: none; }
+    details.faq-item > summary::after { content: '+'; font-size: 22px; font-weight: 400; color: var(--text-muted); }
+    details.faq-item[open] > summary::after { content: '2'; }
+    details.faq-item .faq-q { font-size: 18px; }
+    details.faq-item .faq-a { max-height: none; padding-top: 12px; font-size: 17px; }
+    .cta-section .btn { margin-top: 28px; }
   </style>
 </head>
 <body>
@@ -226,8 +253,7 @@
         </div>
         GoFleet<span class="logo-ai">AI</span>
       </a>
-      
-      
+      <a class="btn btn-primary" href="index.html#book">Book a teardown</a>
     </div>
   </nav>
 
@@ -238,9 +264,9 @@
       <p class="section-desc">Per-truck pricing that scales with your fleet. No hidden fees. No per-user charges. Cancel anytime.</p>
       <div class="billing-toggle">
         <span class="active" id="monthly-label">Monthly</span>
-        <div class="toggle-track" id="billing-toggle" onclick="toggleBilling()">
-          <div class="toggle-thumb"></div>
-        </div>
+        <button type="button" class="toggle-track" id="billing-toggle" role="switch" aria-checked="false" aria-label="Annual billing" onclick="toggleBilling()">
+          <span class="toggle-thumb"></span>
+        </button>
         <span id="annual-label">Annual</span>
         <span class="save-badge">Save 20%</span>
       </div>
@@ -255,14 +281,14 @@
       <div class="pricing-period" data-monthly="Billed monthly" data-annual="Billed annually ($468/truck/yr)">Billed monthly</div>
       <hr class="pricing-divider">
       <ul class="pricing-features">
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Up to 30 trucks</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> AI reads rate cons &amp; tenders</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Command Center &amp; Dispatch Board</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Live GPS &amp; Fleet Map</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> HOS Compliance Monitoring</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Load Management</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Driver Mobile App</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Email &amp; chat support</li>
+        <li>Up to 30 trucks</li>
+        <li>AI reads rate cons &amp; tenders</li>
+        <li>Command Center &amp; Dispatch Board</li>
+        <li>Live GPS &amp; Fleet Map</li>
+        <li>HOS Compliance Monitoring</li>
+        <li>Load Management</li>
+        <li>Driver Mobile App</li>
+        <li>Email &amp; chat support</li>
       </ul>
     </div>
     <div class="pricing-card featured">
@@ -272,15 +298,15 @@
       <div class="pricing-period" data-monthly="Billed monthly" data-annual="Billed annually ($756/truck/yr)">Billed monthly</div>
       <hr class="pricing-divider">
       <ul class="pricing-features">
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Up to 150 trucks</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Everything in Starter</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Email tender intake &amp; review queue</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Weather alerts on routes &amp; the fleet map</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Invoicing, AR aging &amp; factoring send</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Exception Board</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Brokerage Tools</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Customer &amp; Carrier Portals</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Priority support</li>
+        <li>Up to 150 trucks</li>
+        <li>Everything in Starter</li>
+        <li>Email tender intake &amp; review queue</li>
+        <li>Weather alerts on routes &amp; the fleet map</li>
+        <li>Invoicing, AR aging &amp; factoring send</li>
+        <li>Exception Board</li>
+        <li>Brokerage Tools</li>
+        <li>Customer &amp; Carrier Portals</li>
+        <li>Priority support</li>
       </ul>
     </div>
     <div class="pricing-card">
@@ -290,14 +316,14 @@
       <div class="pricing-period">Tailored to your fleet</div>
       <hr class="pricing-divider">
       <ul class="pricing-features">
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> 300+ trucks</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Everything in Professional</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Multi-Entity Support</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Custom API Integrations</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Dedicated Account Manager</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> SLA Guarantees (99.9% uptime)</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> On-Prem ELD Gateway</li>
-        <li><i data-lucide="check" style="width:16px;height:16px;"></i> Custom onboarding &amp; training</li>
+        <li>300+ trucks</li>
+        <li>Everything in Professional</li>
+        <li>Multi-Entity Support</li>
+        <li>Custom API Integrations</li>
+        <li>Dedicated Account Manager</li>
+        <li>SLA Guarantees (99.9% uptime)</li>
+        <li>On-Prem ELD Gateway</li>
+        <li>Custom onboarding &amp; training</li>
       </ul>
     </div>
   </div>
@@ -308,35 +334,36 @@
         <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
       </div>
       <div class="faq-grid">
-        <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">What counts as a "truck"? <i data-lucide="chevron-down" class="faq-chevron" style="width:18px;height:18px;"></i></div>
+        <details class="faq-item">
+          <summary class="faq-q">What counts as a "truck"?</summary>
           <div class="faq-a">Each active power unit (truck/tractor) in your fleet counts as one truck. Trailers, drivers, and user accounts are unlimited on all plans.</div>
-        </div>
-        <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Can I switch plans later? <i data-lucide="chevron-down" class="faq-chevron" style="width:18px;height:18px;"></i></div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Can I switch plans later?</summary>
           <div class="faq-a">Yes. Upgrade or downgrade at any time. When upgrading, you get immediate access to new features. When downgrading, changes take effect at the next billing cycle.</div>
-        </div>
-        <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Is there a setup fee? <i data-lucide="chevron-down" class="faq-chevron" style="width:18px;height:18px;"></i></div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Is there a setup fee?</summary>
           <div class="faq-a">No setup fees on Starter and Professional plans. Enterprise plans include custom onboarding and training — pricing is discussed during the sales consultation.</div>
-        </div>
-        <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">How long does onboarding take? <i data-lucide="chevron-down" class="faq-chevron" style="width:18px;height:18px;"></i></div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">How long does onboarding take?</summary>
           <div class="faq-a">Most fleets are fully operational within 5-7 business days. ELD integration (Samsara) typically connects in under an hour. Data migration from your existing TMS is handled by our team.</div>
-        </div>
-        <div class="faq-item" onclick="this.classList.toggle('open')">
-          <div class="faq-q">Do you offer a free trial? <i data-lucide="chevron-down" class="faq-chevron" style="width:18px;height:18px;"></i></div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Do you offer a free trial?</summary>
           <div class="faq-a">We offer a 14-day free trial on all plans. No credit card required. Start with your full fleet or a subset — your choice.</div>
-        </div>
+        </details>
       </div>
     </div>
   </section>
 
   <section class="cta-section">
     <div class="container" style="position:relative;z-index:1;">
-      <div class="section-label">Get Started</div>
+      <div class="section-label">Get started</div>
       <h2 class="section-title">Bring one <span class="gradient-text">rate con.</span></h2>
       <p class="section-desc">Twenty-five minutes. No module tour. No long-term contract.</p>
+      <a class="btn btn-primary btn-lg" href="index.html#book">Book a 25-minute teardown</a>
     </div>
   </section>
 
@@ -350,11 +377,10 @@
   </footer>
 
   <script>
-    lucide.createIcons();
-
     function toggleBilling() {
       const track = document.getElementById('billing-toggle');
       const isAnnual = track.classList.toggle('annual');
+      track.setAttribute('aria-checked', String(isAnnual));
       document.getElementById('monthly-label').classList.toggle('active', !isAnnual);
       document.getElementById('annual-label').classList.toggle('active', isAnnual);
 
