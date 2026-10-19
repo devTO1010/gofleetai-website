@@ -10,11 +10,9 @@
   <meta property="og:description" content="Your whole trucking business. One system. Dispatch, drivers, money, compliance, maintenance, and yard revenue — one place, one set of numbers, one bill.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gofleetai.com">
-  <meta property="og:image" content="https://gofleetai.com/assets/og-dispatch-board.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://gofleetai.com/assets/og-dispatch-board.png">
+  <meta property="og:image" content="https://gofleetai.com/assets/gofleetai-icon-512.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://gofleetai.com/assets/gofleetai-icon-512.png">
   <link rel="canonical" href="https://gofleetai.com">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-256.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -22,7 +20,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/screens/dispatch-board-2000.webp" imagesrcset="assets/screens/dispatch-board-1000.webp 1000w, assets/screens/dispatch-board-2000.webp 2000w" imagesizes="(max-width: 1180px) 100vw, 1132px">
   <style>
     /*
      * Design notes. Palette and type borrow from US highway guide signs,
@@ -92,22 +89,16 @@
     .hero { padding: 40px 0 0; }
     .sign {
       position: relative; background: var(--sign); color: #fff; border-radius: 22px;
-      padding: 64px 72px 190px;
+      padding: 64px 72px 72px;
       box-shadow: inset 0 0 0 10px var(--sign), inset 0 0 0 14px #fff;
     }
     .sign h1 { font-size: clamp(40px, 5.2vw, 68px); line-height: 1.04; letter-spacing: -0.02em; margin-bottom: 22px; }
     .sign p { font-size: clamp(19px, 1.9vw, 22px); line-height: 1.55; max-width: 52ch; color: #e8f4ee; margin-bottom: 30px; }
     .sign .note { font-size: 16px; color: #cfe8db; margin: 16px 0 0; }
-    .hero-shot { margin: -150px 48px 0; position: relative; }
-    .hero-shot img { border-radius: 12px; border: 1px solid #0d141c; box-shadow: 0 30px 60px -20px rgba(10, 30, 20, .45); }
-    .hero-shot img { animation: rise .9s cubic-bezier(.2,.7,.2,1) .15s both; }
-    @keyframes rise { from { transform: translateY(36px); } to { transform: none; } }
     .caption { font-size: 15.5px; color: var(--ink-2); margin-top: 12px; max-width: var(--measure); }
-    .hero-shot .caption { margin-left: 4px; }
     @media (max-width: 760px) {
-      .sign { padding: 44px 28px 120px; border-radius: 18px; box-shadow: inset 0 0 0 7px var(--sign), inset 0 0 0 10px #fff; }
-      .hero-shot { margin: -90px 12px 0; }
-    }
+      .sign { padding: 44px 28px 52px; border-radius: 18px; box-shadow: inset 0 0 0 7px var(--sign), inset 0 0 0 10px #fff; }
+      }
 
     /* One system statement */
     .statement { padding: 88px 0 96px; }
@@ -167,6 +158,23 @@
     @media (max-width: 900px) { .blurb { grid-template-columns: 1fr; gap: 20px; margin-top: 80px; } }
 
     .fineprint { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: 16px; color: var(--ink-2); max-width: 70ch; }
+    /* Screen viewer */
+    .shot img { cursor: zoom-in; }
+    dialog#viewer { border: 0; padding: 0; background: transparent; width: 100vw; height: 100vh; max-width: 100vw; max-height: 100vh; }
+    dialog#viewer::backdrop { background: rgba(8, 14, 20, .92); }
+    dialog#viewer[open] { display: flex; }
+    .viewer-wrap { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 64px 24px 24px; cursor: zoom-out; }
+    #viewer-img { max-width: min(96vw, 2000px); max-height: calc(100vh - 150px); width: auto; height: auto; border-radius: 8px; background: #0b0f14; cursor: default; }
+    #viewer-cap { color: #e8eef3; font-size: 16px; max-width: 70ch; text-align: center; min-height: 1.2em; }
+    #viewer-close { position: absolute; top: 14px; right: 14px; width: 48px; height: 48px; border: 2px solid #fff; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; font: inherit; font-size: 28px; line-height: 1; cursor: pointer; }
+    #viewer-close:hover { background: rgba(255,255,255,.28); }
+    @media (max-width: 760px) {
+      .viewer-wrap { overflow: auto; align-items: flex-start; justify-content: flex-start; padding: 64px 12px 24px; cursor: default; -webkit-overflow-scrolling: touch; }
+      #viewer-img { max-width: none; max-height: none; flex: none; }
+      #viewer-cap { position: sticky; left: 0; max-width: calc(100vw - 24px); text-align: left; }
+    }
+    #viewer :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+
     /* Plain value lists: heading, sentence, no boxes */
     .values { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 64px; margin-top: 96px; }
     .values h3 { font-size: 21px; margin-bottom: 6px; }
@@ -227,8 +235,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .hero-shot img { animation: none; }
-    }
+      }
   </style>
 </head>
 <body>
@@ -259,15 +266,6 @@
           <a class="btn btn-on-sign" href="#book">Book a 25-minute teardown</a>
           <p class="note">Bring one rate confirmation. We run it through GoFleetAI with you, start to finish.</p>
         </div>
-        <figure class="hero-shot">
-          <a href="assets/screens/dispatch-board-2000.webp">
-            <img src="assets/screens/dispatch-board-2000.webp"
-                 srcset="assets/screens/dispatch-board-1000.webp 1000w, assets/screens/dispatch-board-2000.webp 2000w"
-                 sizes="(max-width: 1180px) 100vw, 1084px" width="2000" height="802"
-                 alt="The GoFleetAI dispatch board: a week of loads per driver, with a truck out of service, a scheduled service and a driver's pending home time on the same calendar.">
-          </a>
-          <figcaption class="caption">The dispatch board. Loads, shop time and home time for every driver on one calendar.</figcaption>
-        </figure>
       </div>
     </div>
 
@@ -391,8 +389,10 @@
             </ul>
           </div>
           <figure class="shot small">
-            <img src="assets/screens/load-margin-920.webp" srcset="assets/screens/load-margin-600.webp 600w, assets/screens/load-margin-920.webp 920w" sizes="(max-width: 900px) 100vw, 460px" width="920" height="822" loading="lazy"
+            <a href="assets/screens/load-margin-920.webp">
+              <img src="assets/screens/load-margin-920.webp" srcset="assets/screens/load-margin-600.webp 600w, assets/screens/load-margin-920.webp 920w" sizes="(max-width: 900px) 100vw, 460px" width="920" height="822" loading="lazy"
                  alt="A load's financials: total miles, deadhead miles, revenue, expenses, driver pay, projected fuel, maintenance and projected profit, with revenue per mile, cost per mile and margin.">
+            </a>
             <figcaption class="caption">Deadhead, maintenance, cost per mile and margin on every load, before the truck rolls.</figcaption>
           </figure>
         </div>
@@ -671,6 +671,50 @@
       </nav>
     </div>
   </footer>
+
+  <dialog id="viewer" aria-label="Screenshot">
+    <div class="viewer-wrap">
+      <button type="button" id="viewer-close" aria-label="Close screenshot">&times;</button>
+      <img id="viewer-img" alt="">
+      <p id="viewer-cap"></p>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      var dlg = document.getElementById('viewer');
+      if (!dlg || typeof dlg.showModal !== 'function') return;
+      var img = document.getElementById('viewer-img');
+      var cap = document.getElementById('viewer-cap');
+      var opener = null;
+      document.querySelectorAll('.shot a').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var thumb = a.querySelector('img');
+          var fig = a.closest('figure');
+          var fc = fig ? fig.querySelector('figcaption') : null;
+          img.style.width = '';
+          img.onload = function () {
+            var wide = img.naturalWidth / img.naturalHeight > 1.2;
+            if (window.matchMedia('(max-width: 760px)').matches && wide) img.style.width = '1100px';
+          };
+          img.src = a.getAttribute('href');
+          img.alt = thumb ? thumb.alt : '';
+          cap.textContent = fc ? fc.textContent : '';
+          opener = a;
+          dlg.showModal();
+        });
+      });
+      document.getElementById('viewer-close').addEventListener('click', function () { dlg.close(); });
+      dlg.addEventListener('click', function (e) {
+        if (e.target === dlg || e.target.classList.contains('viewer-wrap')) dlg.close();
+      });
+      dlg.addEventListener('close', function () {
+        img.removeAttribute('src');
+        if (opener) opener.focus();
+      });
+    })();
+  </script>
 
   <script>
     (function () {
