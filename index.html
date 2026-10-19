@@ -114,34 +114,52 @@
     .statement p { font-size: clamp(22px, 2.4vw, 28px); line-height: 1.5; max-width: 40ch; font-weight: 600; }
     .statement p + p { margin-top: 22px; font-size: 20px; font-weight: 400; color: var(--ink-2); max-width: var(--measure); line-height: 1.65; }
 
-    /* Features */
-    .news { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px 48px; margin-top: 48px; }
-    .news h3 { font-size: 21px; margin-bottom: 8px; }
-    .news p { font-size: 17.5px; color: var(--ink-2); }
-    @media (max-width: 980px) { .news { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .news { grid-template-columns: 1fr; gap: 32px; } }
+    /* Value sections */
+    .sec-head { margin-bottom: 56px; }
+    .sec-head .lede { margin-top: 4px; }
 
-    /* Tour: one screen per row */
-    .tour-head { margin-bottom: 72px; }
+    /* Ask your TMS: a conversation and the reasons to trust it */
+    .ask { display: grid; grid-template-columns: 6fr 5fr; gap: 72px; align-items: start; }
+    .chat { display: flex; flex-direction: column; gap: 14px; }
+    .chat .tag { font-size: 14px; font-weight: 600; color: var(--ink-2); margin-bottom: -6px; }
+    .msg { max-width: 92%; padding: 14px 18px; border-radius: 16px; font-size: 18px; line-height: 1.5; }
+    .msg.you { align-self: flex-end; background: var(--ink); color: #fff; border-bottom-right-radius: 4px; }
+    .msg.bot { align-self: flex-start; background: #fff; border: 1px solid var(--rule); border-bottom-left-radius: 4px; }
+    .msg small { display: block; margin-top: 6px; font-size: 14px; opacity: .78; font-style: italic; }
+    .chat .gap { height: 14px; }
+    .chat-note { font-size: 15.5px; color: var(--ink-2); margin-top: 6px; }
+    .points { list-style: none; }
+    .points li { padding: 22px 0; border-top: 1px solid var(--rule); }
+    .points li:first-child { border-top: 2px solid var(--ink); }
+    .points h3 { font-size: 21px; margin-bottom: 6px; }
+    .points p { font-size: 17.5px; color: var(--ink-2); max-width: 46ch; }
+    @media (max-width: 960px) { .ask { grid-template-columns: 1fr; gap: 48px; } }
+
+    /* Screen + copy rows */
     .row { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: center; }
-    .row + .row, .strip + .row { margin-top: 112px; }
+    .row + .row { margin-top: 112px; }
+    .row.flip { grid-template-columns: 7fr 5fr; }
     .row.flip .copy { order: 2; }
+    .row.narrow { grid-template-columns: 7fr 5fr; }
+    .row.narrow.flip { grid-template-columns: 5fr 7fr; }
     .copy p { color: var(--ink-2); max-width: 46ch; }
     .copy ul { list-style: none; margin-top: 20px; }
     .copy li { position: relative; padding-left: 26px; margin-top: 10px; font-size: 17.5px; max-width: 46ch; }
     .copy li::before { content: ''; position: absolute; left: 0; top: .55em; width: 10px; height: 10px; border-radius: 50%; background: var(--sign); }
     .shot img { border-radius: 10px; border: 1px solid #0d141c; }
     .shot a { display: block; }
-    .row.wide { grid-template-columns: 4fr 8fr; }
-    .row.flip { grid-template-columns: 7fr 5fr; }
-    .row.wide.flip { grid-template-columns: 8fr 4fr; }
-    .strip { margin-top: 48px; }
-    .strip .caption { margin-top: 14px; }
+    .shot.small { max-width: 460px; }
     @media (max-width: 900px) {
-      .row, .row.wide, .row.flip, .row.wide.flip { grid-template-columns: 1fr; gap: 28px; }
+      .row, .row.flip, .row.narrow, .row.narrow.flip { grid-template-columns: 1fr; gap: 28px; }
       .row.flip .copy { order: 0; }
-      .row + .row, .strip + .row { margin-top: 80px; }
+      .row + .row { margin-top: 80px; }
     }
+
+    /* Plain value lists: heading, sentence, no boxes */
+    .values { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 64px; margin-top: 96px; }
+    .values h3 { font-size: 21px; margin-bottom: 6px; }
+    .values p { font-size: 17.5px; color: var(--ink-2); max-width: 48ch; }
+    @media (max-width: 760px) { .values { grid-template-columns: 1fr; gap: 30px; margin-top: 72px; } }
 
     /* Comparison */
     .compare-wrap { margin-top: 44px; overflow-x: auto; border: 1px solid var(--rule); border-radius: 12px; background: #fff; }
@@ -210,8 +228,9 @@
         GoFleetAI
       </a>
       <nav class="nav" aria-label="Main">
-        <a class="plain" href="#tour">Tour</a>
-        <a class="plain" href="#features">Features</a>
+        <a class="plain" href="#ai">Ask your TMS</a>
+        <a class="plain" href="#dispatch">Dispatch</a>
+        <a class="plain" href="#numbers">Numbers</a>
         <a class="plain" href="pricing.html">Pricing</a>
         <a class="btn btn-go" href="#book">Book a teardown</a>
       </nav>
@@ -224,7 +243,7 @@
       <div class="wrap">
         <div class="sign">
           <h1>Your whole trucking business.<br>One system.</h1>
-          <p>Dispatch, the driver app, hiring, pay, invoicing, compliance, maintenance, fuel, IFTA and yard rent. One place, one set of numbers, one bill.</p>
+          <p>Dispatch, pay, invoicing, compliance and maintenance on one set of numbers. Then ask your own AI assistant anything about your fleet, in your language, and get answers from your live data.</p>
           <a class="btn btn-on-sign" href="#book">Book a 25-minute teardown</a>
           <p class="note">Bring one rate confirmation. We run it through GoFleetAI with you, start to finish.</p>
         </div>
@@ -240,174 +259,131 @@
       </div>
     </div>
 
-    <!-- ONE SYSTEM -->
+    <!-- THE CASE -->
     <section class="statement">
       <div class="wrap">
-        <p>The rate con that arrives by email becomes the load. The load becomes the driver's pay and the customer's invoice. Same numbers, start to finish.</p>
-        <p>Most fleets stitch together a dispatch tool, an ELD portal, payroll spreadsheets and accounting software, and every hand-off is where money leaks. GoFleetAI runs all of it, for your trucking and your brokerage authority, from one screen.</p>
+        <p>Trucking companies don't lose money in one big place. They lose it in the hand-offs: a rate retyped wrong, detention nobody billed, a driver paid from stale numbers.</p>
+        <p>GoFleetAI keeps one record from the rate confirmation to the paycheck, for your trucking and your brokerage authority, so those leaks close. Everything below is a way to run the same fleet with more trucks earning, fewer surprises and less overhead.</p>
       </div>
     </section>
 
-    <!-- FEATURES -->
-    <section class="band" id="features">
+    <!-- ASK YOUR TMS -->
+    <section class="band" id="ai">
       <div class="wrap">
-        <h2>The details, handled</h2>
-        <p class="lede">The parts of the job that usually fall through the cracks between separate tools.</p>
-        <ul class="news">
-          <li>
-            <h3>Alerts that say who did what</h3>
-            <p>Every notification reads like a sentence: who acted, on which load or ticket, and at which stop. "Dana Whitfield is 15 minutes late to the delivery on load 1042."</p>
-          </li>
-          <li>
-            <h3>Trailer trackers confirm stops</h3>
-            <p>A trailer with its own tracker now confirms arrivals and departures, and a drop-and-hook completes itself when the loaded trailer leaves the pickup.</p>
-          </li>
-          <li>
-            <h3>Any date range, one box</h3>
-            <p>The dispatch board has a Custom view for up to 14 days. Every date filter in the app is now one calendar, with this and last pay cycle a click away.</p>
-          </li>
-          <li>
-            <h3>Book and dispatch from Quick edit</h3>
-            <p>Save, book and dispatch a load without opening the full load page. Search the navigator for any page or driver, and pin pages to your home screen.</p>
-          </li>
-          <li>
-            <h3>Cost per mile actually driven</h3>
-            <p>Each truck's daily miles come from its ELD odometer, so truck cost reports show cost per mile driven, including miles not on a load. Fixed costs can come from QuickBooks every night.</p>
-          </li>
-          <li>
-            <h3>Insurance, policy by policy</h3>
-            <p>Keep auto liability and cargo policies side by side, one tab each, and project a policy rated by the mile from the miles your trucks run.</p>
-          </li>
-          <li>
-            <h3>A shop clock for mechanics</h3>
-            <p>Mechanics start and end shifts at the shop from their phone, and hourly or daily pay comes from the clock. Staff now earn paid time off and medical benefits each pay period.</p>
-          </li>
-          <li>
-            <h3>A second person for big changes</h3>
-            <p>Several removals in a few minutes wait for an administrator. AI assistants connected to your account can add people and send invites, and those changes wait for approval too.</p>
-          </li>
-          <li>
-            <h3>Driver stages and groups</h3>
-            <p>Mark drivers Onboarding, In training, Active, Offboarding or Terminated, group them by fleet, and message every company driver or owner-operator at once.</p>
-          </li>
-        </ul>
+        <div class="sec-head">
+          <h2>Ask your fleet. In your language.</h2>
+          <p class="lede">Connect the AI assistant your team already uses and talk to your TMS the way you would talk to your best dispatcher. It answers from your live data, so the answer is the real one.</p>
+        </div>
+        <div class="ask">
+          <div class="chat" role="group" aria-label="Example conversations with an AI assistant connected to GoFleetAI">
+            <span class="tag">Example, in English</span>
+            <div class="msg you">Which loads are at risk of missing their appointment today?</div>
+            <div class="msg bot">Two. Load 1042 is projected to reach Dayton 40 minutes after its window closes. Load 1046 has no driver and picks up at 2 PM. Want the drivers who can cover 1046?</div>
+            <div class="gap"></div>
+            <span class="tag">Example, in Spanish</span>
+            <div class="msg you">Agrega a Tasha Grant como despachadora y envía la invitación.<small>Add Tasha Grant as a dispatcher and send the invite.</small></div>
+            <div class="msg bot">Listo. Preparé la invitación y está esperando la aprobación de un administrador.<small>Done. I prepared the invite and it is waiting for an administrator's approval.</small></div>
+            <p class="chat-note">Sample data. Your assistant replies in whichever language you write in.</p>
+          </div>
+          <ul class="points">
+            <li><h3>Answers without a training session</h3><p>Dispatchers, accountants and owners ask in plain words. Nobody has to learn which screen holds the number, or wait for the one person who knows.</p></li>
+            <li><h3>Everything you can open, it can read</h3><p>Every screen in GoFleetAI reaches your assistant the day it exists. There is no integration project, and it works with Claude, ChatGPT, Copilot and other assistants.</p></li>
+            <li><h3>A person signs off</h3><p>Each assistant sees only what its person is allowed to see. When it changes something, the change can wait for an administrator's approval first.</p></li>
+            <li><h3>See exactly what it changed</h3><p>Staff Activity lists every change an assistant made, by name, linked to the record and ready to download.</p></li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <!-- TOUR -->
-    <section id="tour">
+    <!-- DISPATCH -->
+    <section id="dispatch">
       <div class="wrap">
-        <div class="tour-head">
-          <h2>See it working</h2>
-          <p class="lede">Real screens from the app, with sample data. Select any screen to open it full size.</p>
+        <div class="sec-head">
+          <h2>Keep every truck loaded and every promise kept.</h2>
+          <p class="lede">A dispatch desk makes money two ways: trucks that are never idle, and shippers who never have to chase. The board is built around both.</p>
         </div>
 
         <div class="row">
           <div class="copy">
-            <h3>Tenders turn into loads</h3>
-            <p>Rate confirmations and load tenders that land in your dispatch inbox are read by AI and turned into draft loads. A person reviews each one before it is booked.</p>
+            <h3>Hear about the problem before your customer does</h3>
+            <p>The Exception Board ranks what needs you now, worst first. A late pickup that costs you a shipper's trust shows up here before the phone rings.</p>
             <ul>
-              <li>Each offer shows whether a truck can cover it and how far out it is.</li>
-              <li>A revised tender is linked to the load it changes, never booked twice.</li>
-              <li>Nobody retypes a rate con, so the invoice matches it.</li>
+              <li>Late stops, and stops a truck is projected to miss</li>
+              <li>Drivers who've gone quiet, and loads aging with no driver</li>
+              <li>Equipment down and paperwork about to expire</li>
+              <li>Every item opens the load, driver or truck behind it</li>
             </ul>
           </div>
           <figure class="shot">
-            <a href="assets/screens/load-inbox-2000.webp">
-              <img src="assets/screens/load-inbox-1000.webp" srcset="assets/screens/load-inbox-1000.webp 1000w, assets/screens/load-inbox-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 640px" width="2000" height="970" loading="lazy"
-                   alt="The Load Inbox, listing truck requests parsed from email with pickup, delivery, equipment, rate, and whether a truck can cover each one.">
-            </a>
-          </figure>
-        </div>
-
-        <div class="row wide flip">
-          <div class="copy">
-            <h3>Every load on one screen</h3>
-            <p>Stops, charges, expenses, driver pay and projected profit sit on one page. Change a charge and the pay and margin move with it.</p>
-            <ul>
-              <li>Revenue, driver pay, fuel and margin before the truck rolls.</li>
-              <li>Relay loads split into segments, each with its own driver and pay.</li>
-              <li>Warnings when something is off, like a trailer that isn't with its truck.</li>
-            </ul>
-          </div>
-          <figure class="shot">
-            <a href="assets/screens/load-page-2000.webp">
-              <img src="assets/screens/load-page-1000.webp" srcset="assets/screens/load-page-1000.webp 1000w, assets/screens/load-page-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 740px" width="2000" height="1007" loading="lazy"
-                   alt="A load page showing two stops, the commodity, customer charges for line haul, fuel surcharge and detention, and a financials panel with revenue, driver pay and projected profit.">
-            </a>
-          </figure>
-        </div>
-
-        <div class="row wide">
-          <div class="copy">
-            <h3>The driver's phone runs the stop</h3>
-            <p>Drivers see one next step at a time: accept the load, drive to the pickup, arrive, add the POD. In English or Spanish.</p>
-            <ul>
-              <li>Arrivals are confirmed by the truck's GPS, the trailer's tracker or the phone.</li>
-              <li>The POD is captured at the dock, so you can bill the same day.</li>
-              <li>Drivers message dispatch and report problems from the same app.</li>
-            </ul>
-          </div>
-          <figure class="shot">
-            <a href="assets/screens/driver-app-2000.webp">
-              <img src="assets/screens/driver-app-1000.webp" srcset="assets/screens/driver-app-1000.webp 1000w, assets/screens/driver-app-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 740px" width="2000" height="1375" loading="lazy"
-                   alt="Three driver app screens: sign in with email and PIN, a task list with a load to accept and a pickup to drive to, and a delivery stop with Add POD and Delivered buttons.">
+            <a href="assets/screens/exception-board-2000.webp">
+              <img src="assets/screens/exception-board-1000.webp" srcset="assets/screens/exception-board-1000.webp 1000w, assets/screens/exception-board-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 640px" width="2000" height="1015" loading="lazy"
+                   alt="The Exception Board ranking a late pickup and a truck out of service as critical, then a projected late arrival, tight driver hours, a driver with no check-in, an unassigned urgent load and a trailer not with its truck as warnings.">
             </a>
           </figure>
         </div>
 
         <div class="row flip">
           <div class="copy">
-            <h3>Pay set up the way each driver is paid</h3>
-            <p>Per mile, percentage, hourly, flat or salary, with deductions, reserve accounts and benefits, set per driver.</p>
+            <h3>Say yes to freight you can actually cover</h3>
+            <p>On the spot market the first confirmed truck wins. The Load Inbox reads each offer from email and tells you whether a truck can cover it, and how far out, so you answer in a minute, not after a round of calls.</p>
             <ul>
-              <li>Settlements are built from the same loads you invoiced.</li>
-              <li>A statement can be corrected and reissued. Both versions stay on file.</li>
-              <li>A spreadsheet error once over-deducted one driver about $11,400 a year. This design ended it.</li>
+              <li>Every offer shows "Can cover" or "Tight" with the truck that would run it</li>
+              <li>Accept an offer and the draft load is built from it</li>
+              <li>A revised tender attaches to its load, never booked twice</li>
             </ul>
           </div>
           <figure class="shot">
-            <a href="assets/screens/driver-pay-2000.webp">
-              <img src="assets/screens/driver-pay-1000.webp" srcset="assets/screens/driver-pay-1000.webp 1000w, assets/screens/driver-pay-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 640px" width="2000" height="1015" loading="lazy"
-                   alt="A driver's pay setup with earnings grouped by revenue share, per mile, per hour and flat per load.">
+            <a href="assets/screens/load-inbox-2000.webp">
+              <img src="assets/screens/load-inbox-1000.webp" srcset="assets/screens/load-inbox-1000.webp 1000w, assets/screens/load-inbox-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 740px" width="2000" height="970" loading="lazy"
+                   alt="The Load Inbox listing truck requests with pickup, delivery, equipment, rate, and a coverage verdict such as Tight or Can cover for each.">
             </a>
           </figure>
         </div>
 
-        <figure class="shot strip">
-          <a href="assets/screens/settlement-2000.webp">
-            <img src="assets/screens/settlement-1000.webp" srcset="assets/screens/settlement-1000.webp 1000w, assets/screens/settlement-2000.webp 2000w" sizes="(max-width: 1180px) 100vw, 1132px" width="2000" height="356" loading="lazy"
-                 alt="A closed pay period's driver statements with gross, deductions and net, one reopened for correction.">
-          </a>
-          <figcaption class="caption">Each week's statements: gross, deductions and net per driver. A correction is issued as a new statement, so what a driver was already sent stays on file.</figcaption>
-        </figure>
+        <ul class="values">
+          <li><h3>Never hand a driver a trip they can't legally finish</h3><p>Four hours-of-service clocks sit under every driver's name, and dragging a load shows whether it fits. Hours violations count against your safety score, so catching them first protects it.</p></li>
+          <li><h3>Dispatch in one click, not ten calls</h3><p>Drag a load to a driver and press Dispatch. The driver gets it by app, email and text, with a rate confirmation ready for owner-operators and carriers.</p></li>
+          <li><h3>One calendar for drivers, trucks and the shop</h3><p>Loads, time off, shop visits and out-of-service trucks share one timeline, so you see a clash before you commit a load to it.</p></li>
+          <li><h3>Approve time off knowing the cost</h3><p>A driver's request shows what granting it does to your free trucks and your booked loads before you decide.</p></li>
+          <li><h3>Run relay loads without the spreadsheet</h3><p>Each driver's segment gets its own bar, its own timing and its own pay, and a hand-off moves as one piece.</p></li>
+          <li><h3>Settle disputes from the record</h3><p>Every load shows who changed what and when, by name, in plain words. A detention dispute or a pay question is answered in seconds, not from memory.</p></li>
+        </ul>
+      </div>
+    </section>
 
-        <div class="row wide flip">
+    <!-- NUMBERS -->
+    <section class="band" id="numbers">
+      <div class="wrap">
+        <div class="row narrow">
           <div class="copy">
-            <h3>Bill the day you deliver</h3>
-            <p>Delivered loads move to review, then to invoice. Missing paperwork is called out before anything is sent.</p>
+            <h2>Price every lane on what it really costs you.</h2>
+            <p>Most fleets quote from revenue per mile and find the truth at tax time. GoFleetAI counts the miles no load paid for, and the costs your books already hold.</p>
             <ul>
-              <li>Generate and email invoices in one click, or send them to your factoring company.</li>
-              <li>See what is pending, sent, sold to factor and paid at a glance.</li>
-              <li>Detention runs from the appointment time and lands on the load as a charge.</li>
+              <li><strong>Know your true cost per mile.</strong> Each truck's daily miles come from its ELD odometer, so empty miles are in the number. Quote against what a mile actually costs.</li>
+              <li><strong>Your QuickBooks costs, already in your margins.</strong> Choose which cost categories take their amount from QuickBooks. The books are read every night and each cost lands on the trucks that carried it. No month-end spreadsheet.</li>
+              <li><strong>Map your books in minutes.</strong> Assign dozens of QuickBooks accounts to a cost category in one move instead of one at a time.</li>
             </ul>
           </div>
-          <figure class="shot">
-            <a href="assets/screens/invoicing-2000.webp">
-              <img src="assets/screens/invoicing-1000.webp" srcset="assets/screens/invoicing-1000.webp 1000w, assets/screens/invoicing-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 740px" width="2000" height="1158" loading="lazy"
-                   alt="The invoicing screen with totals for pending review, ready to invoice, awaiting payment, sold to factor and paid, and a list of loads ready to invoice.">
-            </a>
+          <figure class="shot small">
+            <img src="assets/screens/load-margin-920.webp" srcset="assets/screens/load-margin-600.webp 600w, assets/screens/load-margin-920.webp 920w" sizes="(max-width: 900px) 100vw, 460px" width="920" height="760" loading="lazy"
+                 alt="A load's financials: total miles, deadhead miles, revenue, expenses, driver pay, projected fuel and profit, with revenue per mile, cost per mile and margin.">
+            <figcaption class="caption">Deadhead, cost per mile and margin on every load, before the truck rolls.</figcaption>
           </figure>
         </div>
+      </div>
+    </section>
 
-        <div class="row wide">
+    <!-- MAINTENANCE -->
+    <section id="maintenance">
+      <div class="wrap">
+        <div class="row flip">
           <div class="copy">
-            <h3>The shop sees problems as they happen</h3>
-            <p>A defect reported from the driver app lands on the shop's board. The shop and dispatch share one calendar, so a truck in the shop isn't dispatched.</p>
+            <h2>Keep trucks legal and earning, not sidelined at the roadside.</h2>
+            <p>A missed annual inspection or an overdue service turns into an out-of-service order at the worst moment, and maintenance violations count against your safety score.</p>
             <ul>
-              <li>Engine fault codes from the ELD show up as tickets.</li>
-              <li>Service schedules run by date or by miles, for trucks and trailers.</li>
-              <li>Mechanics clock their shifts at the shop and get paid from the clock.</li>
+              <li><strong>Schedules by time, miles or both.</strong> Repeat a service by days, weeks, months or miles. Each truck and trailer follows its own due date.</li>
+              <li><strong>Trailers count miles too.</strong> A trailer's mileage drives its own schedule, and every job records the hubodometer reading.</li>
+              <li><strong>Drivers report, the shop sees it.</strong> A defect written up in the driver app lands on the shop's board, and ELD fault codes become tickets.</li>
             </ul>
           </div>
           <figure class="shot">
@@ -417,14 +393,85 @@
             </a>
           </figure>
         </div>
+      </div>
+    </section>
 
-        <div class="row flip">
+    <!-- PEOPLE -->
+    <section class="band" id="people">
+      <div class="wrap">
+        <div class="row narrow flip">
+          <figure class="shot">
+            <a href="assets/screens/driver-pay-2000.webp">
+              <img src="assets/screens/driver-pay-1000.webp" srcset="assets/screens/driver-pay-1000.webp 1000w, assets/screens/driver-pay-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 640px" width="2000" height="1015" loading="lazy"
+                   alt="A driver's pay setup with earnings grouped by revenue share, per mile, per hour and flat per load.">
+            </a>
+            <figcaption class="caption">Pay set up per person: earnings, deductions, reserves and benefits in one place.</figcaption>
+          </figure>
           <div class="copy">
-            <h3>Yard rent that bills itself</h3>
-            <p>Spare yard space becomes monthly income. Tenants keep a card on file and rent is charged each month, in the same system that runs the trucks.</p>
+            <h2>Hire, pay and keep the people who keep you moving.</h2>
+            <p>Driver turnover and shop labor are where a fleet's margin quietly leaks. Pay that is accurate and explainable is what keeps good people.</p>
+          </div>
+        </div>
+        <ul class="values">
+          <li><h3>Every driver, from hire to exit</h3><p>Mark each driver Onboarding, In training, Active, Offboarding or Terminated, so everyone knows who can run and who is on the way out. The application is on file the day you hire.</p></li>
+          <li><h3>Message every owner-operator at once</h3><p>One message reaches all company drivers, all owner-operators, all independent contractors or all carrier drivers, each in their own thread. A policy change goes out once, not forty times.</p></li>
+          <li><h3>Pay mechanics from a real clock</h3><p>Mechanics clock in and out from their phone, and a tap counts only at your shop. Hourly or daily pay comes from the clock, so there are no timesheet disputes.</p></li>
+          <li><h3>Offer staff PTO and medical</h3><p>Office and shop staff accrue paid time off and medical every pay period, and approved time off draws it down. Benefits become a reason to join and a reason to stay.</p></li>
+          <li><h3>Pay commission when the money lands</h3><p>Pay dispatchers and sales agents on delivered, invoiced or paid loads, whichever you choose. Choose paid, and no commission goes out on a load the customer never pays for.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- DELIVERED TO PAID -->
+    <section id="paid">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2>From the dock to the bank, faster.</h2>
+          <p class="lede">Every day between a delivery and an invoice is a day you are financing the shipper. Collect the paperwork at the stop and bill the same day.</p>
+        </div>
+
+        <div class="row narrow">
+          <div class="copy">
+            <h3>Collect the proof of delivery at the dock</h3>
+            <p>Drivers see one next step at a time, in English or Spanish. The POD is captured at the stop, so the invoice can go out the day you deliver instead of the day someone chases the paperwork.</p>
             <ul>
-              <li>See who has paid, who hasn't, and whose card is expiring.</li>
-              <li>Spots, deposits and balances in one list.</li>
+              <li>Arrivals are confirmed by the truck's GPS, the trailer's tracker or the phone</li>
+              <li>Drivers message dispatch and report problems from the same app</li>
+            </ul>
+          </div>
+          <figure class="shot">
+            <a href="assets/screens/driver-app-2000.webp">
+              <img src="assets/screens/driver-app-1000.webp" srcset="assets/screens/driver-app-1000.webp 1000w, assets/screens/driver-app-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 640px" width="2000" height="1375" loading="lazy"
+                   alt="Three driver app screens: sign in with email and PIN, a task list with a load to accept and a pickup to drive to, and a delivery stop with Add POD and Delivered buttons.">
+            </a>
+          </figure>
+        </div>
+
+        <div class="row narrow flip">
+          <div class="copy">
+            <h3>Know where every invoice stands</h3>
+            <p>Delivered loads move to review and then to invoice, with missing paperwork called out before anything goes out.</p>
+            <ul>
+              <li>Generate and email invoices in one click, or send them to your factoring company</li>
+              <li>See what is pending, sent, sold to factor and paid at a glance</li>
+              <li>Detention runs from the appointment time and lands on the load as a charge</li>
+            </ul>
+          </div>
+          <figure class="shot">
+            <a href="assets/screens/invoicing-2000.webp">
+              <img src="assets/screens/invoicing-1000.webp" srcset="assets/screens/invoicing-1000.webp 1000w, assets/screens/invoicing-2000.webp 2000w" sizes="(max-width: 900px) 100vw, 640px" width="2000" height="1158" loading="lazy"
+                   alt="The invoicing screen with totals for pending review, ready to invoice, awaiting payment, sold to factor and paid, and a list of loads ready to invoice.">
+            </a>
+          </figure>
+        </div>
+
+        <div class="row narrow">
+          <div class="copy">
+            <h3>Turn spare yard space into monthly income</h3>
+            <p>Tenants keep a card on file and rent is charged every month, in the same system that runs the trucks.</p>
+            <ul>
+              <li>See who has paid, who hasn't and whose card is expiring</li>
+              <li>Spots, deposits and balances in one list</li>
             </ul>
           </div>
           <figure class="shot">
@@ -467,8 +514,10 @@
               <tr><th scope="row">Maintenance and a mechanic app</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
               <tr><th scope="row">IFTA, fuel and tolls</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
               <tr><th scope="row">Yard parking rent, billed automatically</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+              <tr><th scope="row">Maintenance schedules by date or mileage</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
               <tr><th scope="row">AI that reads your paperwork</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
-            </tbody>
+                          <tr><th scope="row">Connect your own AI assistant</th><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes us">✓</td></tr>
+</tbody>
           </table>
         </div>
         <p class="after-table">When dispatch, pay, invoicing and reports read the same load, the quote, the paycheck and the invoice always agree. A stack of separate tools can't promise that.</p>
@@ -478,8 +527,8 @@
     <!-- AI -->
     <section>
       <div class="wrap">
-        <h2>AI where it pays. A person where it matters.</h2>
-        <p class="lede">The AI reads paperwork and types it in. People decide what gets booked and what gets paid. Your data stays yours.</p>
+        <h2>Paperwork AI that keeps your data yours.</h2>
+        <p class="lede">The AI reads rate confirmations, licenses and insurance pages and types them in. People decide what gets booked and what gets paid.</p>
         <ul class="ai">
           <li><h3>No memory</h3><p>Every document is one sealed request: read, answered, over. Nothing carries between requests.</p></li>
           <li><h3>Never trains on your data</h3><p>Business API terms keep your freight, rates and drivers out of anyone's AI training.</p></li>
