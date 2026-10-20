@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pricing — GoFleetAI</title>
-  <meta name="description" content="Pricing by fleet size: $500 a month plus a revenue share, up to $1,500, for 1–15 trucks; $2,500 a month for 16–30; custom pricing beyond. No per-user charges.">
+  <meta name="description" content="Pricing by fleet size: $500 a month plus 0.4% of invoiced revenue, up to $1,500, for 1–15 trucks; $2,500 a month for 16–30; custom pricing beyond. No per-user charges.">
   <meta property="og:title" content="Pricing — GoFleetAI">
-  <meta property="og:description" content="Pricing by fleet size: $500 a month plus a revenue share, up to $1,500, for 1–15 trucks; $2,500 a month for 16–30; custom pricing beyond. No per-user charges.">
+  <meta property="og:description" content="Pricing by fleet size: $500 a month plus 0.4% of invoiced revenue, up to $1,500, for 1–15 trucks; $2,500 a month for 16–30; custom pricing beyond. No per-user charges.">
   <meta property="og:image" content="https://gofleetai.com/assets/logo-lockup-dark.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://gofleetai.com/pricing">
@@ -126,6 +126,7 @@
     .pricing-amount { font-size: 52px; font-weight: 800; margin-bottom: 4px; }
     .pricing-amount.call { font-size: 34px; line-height: 1.25; padding: 9px 0; }
     .pricing-amount span { font-size: 16px; font-weight: 500; color: var(--text-muted); }
+    .pricing-share { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
     .pricing-period { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
     .pricing-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 28px; }
     .pricing-features { list-style: none; margin-bottom: 32px; flex: 1; }
@@ -242,7 +243,8 @@
       <div class="pricing-plan">1–15 trucks</div>
       <div class="pricing-desc">For small fleets replacing the dispatch tool and the spreadsheet</div>
       <div class="pricing-amount">$500<span>/month</span></div>
-      <div class="pricing-period">Plus a revenue share. The total never exceeds $1,500 a month. Ask us for the rate.</div>
+      <div class="pricing-share">+ 0.4% of invoiced revenue</div>
+      <div class="pricing-period">Freight revenue you invoice in GoFleetAI. The total never exceeds $1,500 a month.</div>
       <hr class="pricing-divider">
       <ul class="pricing-features">
         <li>Every feature included</li>
@@ -293,6 +295,10 @@
         <details class="faq-item">
           <summary class="faq-q">What counts as a "truck"?</summary>
           <div class="faq-a">Each active power unit (truck/tractor) in your fleet counts as one truck. Trailers, drivers, and user accounts are unlimited on all plans.</div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">How does the 1–15 truck price work?</summary>
+          <div class="faq-a">You pay $500 a month plus 0.4% of the freight revenue you invoice through GoFleetAI that month. The total never exceeds $1,500 a month. A fleet that invoices $90,000 in a month pays $860. A fleet that invoices $250,000 or more pays the $1,500 maximum.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-q">Can I switch plans later?</summary>
