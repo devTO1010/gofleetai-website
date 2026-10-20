@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pricing — GoFleetAI</title>
-  <meta name="description" content="Simple per-truck pricing that scales with your fleet. No hidden fees. No per-user charges.">
+  <meta name="description" content="Flat monthly pricing by fleet size: $1,500 a month for 1–15 trucks, $2,500 for 16–30, and custom pricing beyond. No per-user charges.">
   <meta property="og:title" content="Pricing — GoFleetAI">
-  <meta property="og:description" content="Simple per-truck pricing that scales with your fleet. No hidden fees. No per-user charges.">
+  <meta property="og:description" content="Flat monthly pricing by fleet size: $1,500 a month for 1–15 trucks, $2,500 for 16–30, and custom pricing beyond. No per-user charges.">
   <meta property="og:image" content="https://gofleetai.com/assets/logo-lockup-dark.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://gofleetai.com/pricing">
@@ -110,27 +110,6 @@
     .section-title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; }
     .section-desc { font-size: 18px; color: var(--text-secondary); max-width: 640px; line-height: 1.7; margin: 0 auto; }
 
-    /* Toggle */
-    .billing-toggle {
-      display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 32px;
-    }
-    .billing-toggle span { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
-    .billing-toggle span.active { color: var(--text-primary); }
-    .toggle-track {
-      width: 48px; height: 26px; background: var(--border); border-radius: 13px;
-      position: relative; cursor: pointer; transition: background 0.2s;
-    }
-    .toggle-track.annual { background: var(--accent); }
-    .toggle-thumb {
-      width: 20px; height: 20px; background: white; border-radius: 50%;
-      position: absolute; top: 3px; left: 3px; transition: left 0.2s;
-    }
-    .toggle-track.annual .toggle-thumb { left: 25px; }
-    .save-badge {
-      font-size: 12px; padding: 3px 10px; border-radius: 100px;
-      background: var(--green-glow); color: var(--green); font-weight: 600;
-    }
-
     /* Cards */
     .pricing-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
@@ -141,21 +120,15 @@
       padding: 40px 32px; position: relative; transition: all 0.3s;
     }
     .pricing-card:hover { transform: translateY(-4px); }
-    .pricing-card.featured {
-      border-color: var(--accent); box-shadow: 0 0 40px rgba(59,130,246,0.15);
-    }
-    .pricing-card.featured::before {
-      content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-      background: var(--accent); color: white; font-size: 12px; font-weight: 600;
-      padding: 4px 16px; border-radius: 100px;
-    }
     .pricing-plan { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .pricing-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 28px; min-height: 40px; }
+    .pricing-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 28px; }
+    @media (min-width: 1025px) { .pricing-desc { min-height: 80px; } }
     .pricing-amount { font-size: 52px; font-weight: 800; margin-bottom: 4px; }
+    .pricing-amount.call { font-size: 34px; line-height: 1.25; padding: 9px 0; }
     .pricing-amount span { font-size: 16px; font-weight: 500; color: var(--text-muted); }
     .pricing-period { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
     .pricing-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 28px; }
-    .pricing-features { list-style: none; margin-bottom: 32px; }
+    .pricing-features { list-style: none; margin-bottom: 32px; flex: 1; }
     .pricing-features li {
       display: flex; align-items: center; gap: 10px;
       font-size: 14px; color: var(--text-secondary); padding: 8px 0;
@@ -227,10 +200,8 @@
     :focus-visible { outline: 3px solid #1d5fd6; outline-offset: 3px; border-radius: 4px; }
     .pricing-desc, .pricing-features li { font-size: 16.5px; }
     .pricing-card:hover { transform: none; }
-    .pricing-card.featured { box-shadow: 0 0 0 1px var(--accent); }
+    .pricing-card { display: flex; flex-direction: column; }
     .pricing-features li::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--green); flex: none; }
-    .billing-toggle span { font-size: 16px; }
-    .toggle-track { border: none; }
     details.faq-item > summary { list-style: none; }
     details.faq-item > summary::-webkit-details-marker { display: none; }
     details.faq-item > summary::after { content: '+'; font-size: 22px; font-weight: 400; color: var(--text-muted); }
@@ -262,70 +233,52 @@
     <div class="container">
       <div class="section-label">Pricing</div>
       <h1 class="section-title">Simple Pricing. <span class="gradient-text">Serious Value.</span></h1>
-      <p class="section-desc">Per-truck pricing that scales with your fleet. No hidden fees. No per-user charges. Cancel anytime.</p>
-      <div class="billing-toggle">
-        <span class="active" id="monthly-label">Monthly</span>
-        <button type="button" class="toggle-track" id="billing-toggle" role="switch" aria-checked="false" aria-label="Annual billing" onclick="toggleBilling()">
-          <span class="toggle-thumb"></span>
-        </button>
-        <span id="annual-label">Annual</span>
-        <span class="save-badge">Save 20%</span>
-      </div>
+      <p class="section-desc">Flat monthly pricing by fleet size. No hidden fees. No per-user charges. Cancel anytime.</p>
     </div>
   </section>
 
   <div class="pricing-grid">
     <div class="pricing-card">
-      <div class="pricing-plan">Starter</div>
-      <div class="pricing-desc">For fleets replacing the dispatch tool and the spreadsheet</div>
-      <div class="pricing-amount" data-monthly="$49" data-annual="$39">$49<span>/truck/mo</span></div>
-      <div class="pricing-period" data-monthly="Billed monthly" data-annual="Billed annually ($468/truck/yr)">Billed monthly</div>
+      <div class="pricing-plan">1–15 trucks</div>
+      <div class="pricing-desc">For small fleets replacing the dispatch tool and the spreadsheet</div>
+      <div class="pricing-amount">$1,500<span>/month</span></div>
+      <div class="pricing-period">Flat price, billed monthly</div>
       <hr class="pricing-divider">
       <ul class="pricing-features">
-        <li>Up to 30 trucks</li>
-        <li>AI reads rate cons &amp; tenders</li>
-        <li>Command Center &amp; Dispatch Board</li>
-        <li>Live GPS &amp; Fleet Map</li>
-        <li>HOS Compliance Monitoring</li>
-        <li>Load Management</li>
-        <li>Driver Mobile App</li>
+        <li>Every feature included</li>
+        <li>Unlimited users, drivers and trailers</li>
         <li>Email &amp; chat support</li>
       </ul>
-    </div>
-    <div class="pricing-card featured">
-      <div class="pricing-plan">Professional</div>
-      <div class="pricing-desc">Settlements, invoicing, brokerage, and compliance on the same load</div>
-      <div class="pricing-amount" data-monthly="$79" data-annual="$63">$79<span>/truck/mo</span></div>
-      <div class="pricing-period" data-monthly="Billed monthly" data-annual="Billed annually ($756/truck/yr)">Billed monthly</div>
-      <hr class="pricing-divider">
-      <ul class="pricing-features">
-        <li>Up to 150 trucks</li>
-        <li>Everything in Starter</li>
-        <li>Email tender intake &amp; review queue</li>
-        <li>Weather alerts on routes &amp; the fleet map</li>
-        <li>Invoicing, AR aging &amp; factoring send</li>
-        <li>Exception Board</li>
-        <li>Brokerage Tools</li>
-        <li>Customer &amp; Carrier Portals</li>
-        <li>Priority support</li>
-      </ul>
+      <a class="btn btn-secondary" href="index.html#book">Book a teardown</a>
     </div>
     <div class="pricing-card">
-      <div class="pricing-plan">Enterprise</div>
-      <div class="pricing-desc">Multi-entity fleets with custom integrations</div>
-      <div class="pricing-amount">Custom</div>
+      <div class="pricing-plan">16–30 trucks</div>
+      <div class="pricing-desc">For growing fleets running dispatch, pay, invoicing and compliance in one place</div>
+      <div class="pricing-amount">$2,500<span>/month</span></div>
+      <div class="pricing-period">Flat price, billed monthly</div>
+      <hr class="pricing-divider">
+      <ul class="pricing-features">
+        <li>Every feature included</li>
+        <li>Unlimited users, drivers and trailers</li>
+        <li>Priority support</li>
+      </ul>
+      <a class="btn btn-secondary" href="index.html#book">Book a teardown</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-plan">31+ trucks</div>
+      <div class="pricing-desc">Larger fleets and multi-company operations</div>
+      <div class="pricing-amount call">Call for pricing</div>
       <div class="pricing-period">Tailored to your fleet</div>
       <hr class="pricing-divider">
       <ul class="pricing-features">
-        <li>300+ trucks</li>
-        <li>Everything in Professional</li>
-        <li>Multi-Entity Support</li>
-        <li>Custom API Integrations</li>
-        <li>Dedicated Account Manager</li>
-        <li>SLA Guarantees (99.9% uptime)</li>
-        <li>On-Prem ELD Gateway</li>
+        <li>Every feature included</li>
+        <li>Multiple companies on one account</li>
+        <li>Custom API integrations</li>
+        <li>Dedicated account manager</li>
+        <li>SLA guarantees (99.9% uptime)</li>
         <li>Custom onboarding &amp; training</li>
       </ul>
+      <a class="btn btn-primary" href="index.html#book">Talk to us</a>
     </div>
   </div>
 
@@ -343,11 +296,11 @@
         </details>
         <details class="faq-item">
           <summary class="faq-q">Can I switch plans later?</summary>
-          <div class="faq-a">Yes. Upgrade or downgrade at any time. When upgrading, you get immediate access to new features. When downgrading, changes take effect at the next billing cycle.</div>
+          <div class="faq-a">Yes. Move up a tier when your fleet grows. A move to a lower tier takes effect at the next billing cycle.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-q">Is there a setup fee?</summary>
-          <div class="faq-a">No setup fees on Starter and Professional plans. Enterprise plans include custom onboarding and training — pricing is discussed during the sales consultation.</div>
+          <div class="faq-a">No setup fee on the 1–15 and 16–30 truck tiers. Larger fleets get custom onboarding and training, priced in the sales conversation.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-q">Do I need an ELD or GPS provider?</summary>
@@ -388,21 +341,6 @@
   </footer>
 
   <script>
-    function toggleBilling() {
-      const track = document.getElementById('billing-toggle');
-      const isAnnual = track.classList.toggle('annual');
-      track.setAttribute('aria-checked', String(isAnnual));
-      document.getElementById('monthly-label').classList.toggle('active', !isAnnual);
-      document.getElementById('annual-label').classList.toggle('active', isAnnual);
-
-      document.querySelectorAll('.pricing-amount[data-monthly]').forEach(el => {
-        const price = isAnnual ? el.dataset.annual : el.dataset.monthly;
-        el.innerHTML = price + '<span>/truck/mo</span>';
-      });
-      document.querySelectorAll('.pricing-period[data-monthly]').forEach(el => {
-        el.textContent = isAnnual ? el.dataset.annual : el.dataset.monthly;
-      });
-    }
   </script>
 </body>
 </html>
