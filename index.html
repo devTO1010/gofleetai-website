@@ -175,6 +175,7 @@
     }
     #viewer :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
 
+    .disclaimer { padding: 72px 0; background: var(--band); }
     /* Plain value lists: heading, sentence, no boxes */
     .values { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 64px; margin-top: 96px; }
     .values h3 { font-size: 21px; margin-bottom: 6px; }
@@ -370,7 +371,7 @@
           <li><h3>Run relay loads without the spreadsheet</h3><p>Each driver's segment gets its own bar, its own timing and its own pay, and a hand-off moves as one piece.</p></li>
           <li><h3>Settle disputes from the record</h3><p>Every load shows who changed what and when, by name, in plain words. A detention dispute or a pay question is answered in seconds, not from memory.</p></li>
         </ul>
-        <p class="fineprint">Live tracking, hours-of-service clocks, arrival detection, mileage and fault codes need an ELD or GPS provider such as Samsara or Motive for full functionality.</p>
+        <p class="fineprint">Several features on this page need a paid third-party ELD or GPS solution, which GoFleetAI connects to. <a href="#eld">See which ones</a>.</p>
       </div>
     </section>
 
@@ -658,11 +659,35 @@
         </div>
       </div>
     </section>
+    <!-- ELD / GPS DISCLAIMER -->
+    <section id="eld" class="disclaimer">
+      <div class="wrap">
+        <div class="blurb first">
+          <h3>ELD and GPS requirements</h3>
+          <div>
+            <p>GoFleetAI does not provide ELD or GPS services, devices or tracking for trucks, trailers or other equipment. The features below need a paid third-party ELD or GPS solution, such as Samsara or Motive, which GoFleetAI connects to.</p>
+            <ul>
+              <li>Live truck and trailer locations and the fleet map</li>
+              <li>Automatic arrival and departure detection at stops</li>
+              <li>Hours-of-service clocks, driver availability and hours warnings on the dispatch board</li>
+              <li>Projected late arrivals</li>
+              <li>Mileage from each truck's odometer, including cost per mile driven</li>
+              <li>Maintenance schedules by miles, and engine fault codes becoming tickets</li>
+              <li>IFTA mileage by state</li>
+              <li>Trailer tracking and "trailer not with its truck" warnings, which need a tracker on the trailer</li>
+              <li>Driver safety scores</li>
+            </ul>
+            <p style="margin-top:18px">Dispatch, pay and invoicing work without one. The third-party service, its devices and its fees are separate from GoFleetAI and are paid to that provider.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer>
     <div class="wrap">
-      <span>© 2026 TekOmni LLC. GoFleetAI is not affiliated with GoFleet telematics.</span>
+      <span>© 2026 TekOmni LLC. GoFleetAI does not provide ELD or GPS services and is not affiliated with GoFleet telematics.</span>
       <nav aria-label="Footer">
         <a href="pricing.html">Pricing</a>
         <a href="privacy.html">Privacy</a>
