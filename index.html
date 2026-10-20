@@ -635,8 +635,8 @@
     <!-- BOOK -->
     <section class="book" id="book">
       <div class="wrap">
-        <h2>Book a 25-minute teardown</h2>
-        <p class="lede">Send one rate confirmation ahead. We run it through GoFleetAI with you, from tender to invoice to driver pay. No module tour.</p>
+        <h2 id="book-title">Book a 25-minute teardown</h2>
+        <p class="lede" id="book-lede">Send one rate confirmation ahead. We run it through GoFleetAI with you, from tender to invoice to driver pay. No module tour.</p>
         <div class="intake" id="intake-wrap">
           <form class="intake-form" id="intake-form">
             <label>Your name<input class="intake-input" id="intake-name" type="text" required autocomplete="name"></label>
@@ -747,6 +747,19 @@
       const calCard = document.getElementById('cal-embed-card');
       if (!form || !calCard) return;
 
+      const pricingTalk = new URLSearchParams(location.search).get('talk') === 'pricing';
+      if (pricingTalk) {
+        document.getElementById('book-title').textContent = 'Book a pricing conversation';
+        document.getElementById('book-lede').textContent = 'Tell us about your fleet and we will price it with you.';
+        document.title = 'Book a pricing conversation — GoFleetAI';
+      }
+      if (location.hash === '#book') {
+        // Images above the form load after the browser's own jump to #book and shift the page; land on the form once they have.
+        window.addEventListener('load', function () {
+          document.getElementById('book').scrollIntoView({ behavior: 'auto', block: 'start' });
+        });
+      }
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         const name = document.getElementById('intake-name').value.trim();
@@ -787,7 +800,9 @@
         const query = new URLSearchParams({ 'fleet-size': fleetSize });
         Cal.ns['gofleetai']('inline', {
           elementOrSelector: '#gofleetai-cal-embed',
-          config: { layout: 'month_view', name: name, email: email },
+          config: pricingTalk
+            ? { layout: 'month_view', name: name, email: email, notes: 'Pricing conversation' }
+            : { layout: 'month_view', name: name, email: email },
           calLink: 'william-pimentel-zbzwpx/gofleetai-demo-meeting?' + query.toString(),
         });
         Cal.ns['gofleetai']('ui', {
