@@ -146,8 +146,9 @@
           <input type="text" id="lastName" placeholder="Driver" required>
         </div>
         <div class="form-group">
-          <label for="phone">Mobile Phone Number *</label>
-          <input type="tel" id="phone" placeholder="(502) 555-0100" required>
+          <label for="phone">Mobile Phone Number (optional)</label>
+          <input type="tel" id="phone" placeholder="(502) 555-0100">
+          <p class="fine-print" id="phoneNeeded" hidden>Enter a mobile number to receive dispatch texts, or uncheck the box below.</p>
         </div>
 
         <div class="consent">
@@ -194,14 +195,18 @@
     lucide.createIcons();
     const cb = document.getElementById('consent');
     const form = document.getElementById('optinForm');
-    // SMS consent is OPTIONAL. The form submits with the box checked OR unchecked —
-    // providing a mobile number never forces SMS opt-in (10DLC carrier requirement).
+    // SMS consent is OPTIONAL and so is the mobile number (carrier opt-in rules, 10DLC
+    // and toll-free: a required phone field reads as forced opt-in). Only the name is
+    // required. A number is asked for only when the driver checks the consent box.
+    const phoneNeeded = document.getElementById('phoneNeeded');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const fn = document.getElementById('firstName').value.trim();
       const ln = document.getElementById('lastName').value.trim();
       const ph = document.getElementById('phone').value.trim();
-      if (!fn || !ln || !ph) return; // name + mobile required; consent is NOT
+      if (!fn || !ln) return;
+      phoneNeeded.hidden = !(cb.checked && !ph);
+      if (!phoneNeeded.hidden) return;
       const optedIn = cb.checked;
       const success = document.getElementById('success');
       success.querySelector('h2').textContent = optedIn ? "You're opted in" : "Thanks — details received";
